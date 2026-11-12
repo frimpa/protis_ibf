@@ -1,0 +1,14 @@
+{
+    "name": "cnr-ibf/protis-vendor",
+    "description": "Dipendenze PHP del componente PROTIS (incluse nel pacchetto di installazione)",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.3",
+        "phpoffice/phpspreadsheet": "^5.0"
+    },
+    "config": {
+        "platform": {"php": "8.3.0"},
+        "optimize-autoloader": true
+    }
+}

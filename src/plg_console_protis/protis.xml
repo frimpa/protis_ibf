@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="console" method="upgrade">
+	<name>plg_console_protis</name>
+	<author>Francesco Impallari (CNR-IBF)</author>
+	<creationDate>2026-11</creationDate>
+	<copyright>(C) CNR - Istituto di Biofisica</copyright>
+	<license>EUPL-1.2 - vedi LICENSE</license>
+	<version>3.2.0</version>
+	<description>PLG_CONSOLE_PROTIS_XML_DESCRIPTION</description>
+	<namespace path="src">Cnr\Plugin\Console\Protis</namespace>
+	<files>
+		<folder plugin="protis">services</folder>
+		<folder>src</folder>
+	</files>
+	<languages>
+		<language tag="it-IT">language/it-IT/plg_console_protis.sys.ini</language>
+		<language tag="en-GB">language/en-GB/plg_console_protis.sys.ini</language>
+	</languages>
+</extension>

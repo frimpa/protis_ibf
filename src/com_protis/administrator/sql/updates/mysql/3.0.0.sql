@@ -1,0 +1,1 @@
+-- 3.0.0 schema iniziale (vedi install/mysql/install.sql)

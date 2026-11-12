@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<fieldset name="general" label="COM_PROTIS_CONFIG_GENERAL">
+		<field name="app_name" type="text" default="PROTIS IBF" label="COM_PROTIS_CONFIG_APP_NAME" />
+		<field name="istituto" type="text" default="" label="COM_PROTIS_CONFIG_ISTITUTO" />
+		<field name="brand_ente" type="text" default="Consiglio Nazionale delle Ricerche" label="COM_PROTIS_CONFIG_BRAND_ENTE" description="COM_PROTIS_CONFIG_BRAND_DESC" />
+		<field name="brand_istituto" type="text" default="" label="COM_PROTIS_CONFIG_BRAND_ISTITUTO" description="COM_PROTIS_CONFIG_BRAND_DESC" />
+		<field name="app_logo" type="text" default="" label="COM_PROTIS_CONFIG_APP_LOGO" description="COM_PROTIS_CONFIG_APP_LOGO_DESC" />
+		<field name="support_name" type="text" default="" label="COM_PROTIS_CONFIG_SUPPORT_NAME" description="COM_PROTIS_CONFIG_SUPPORT_DESC" />
+		<field name="support_email" type="email" default="" label="COM_PROTIS_CONFIG_SUPPORT_EMAIL" description="COM_PROTIS_CONFIG_SUPPORT_DESC" />
+		<field name="theme_color" type="color" default="#0b4f8a" label="COM_PROTIS_CONFIG_THEME_COLOR" />
+		<field name="accent_color" type="color" default="#ffc300" label="COM_PROTIS_CONFIG_ACCENT_COLOR" />
+		<field name="app_template" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_PROTIS_CONFIG_APP_TEMPLATE" description="COM_PROTIS_CONFIG_APP_TEMPLATE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="pwa" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_PROTIS_CONFIG_PWA" description="COM_PROTIS_CONFIG_PWA_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+	</fieldset>
+	<fieldset name="epas" label="COM_PROTIS_CONFIG_EPAS">
+		<field name="epas_url" type="url" default="https://epas4clients.amministrazione.cnr.it/rest/v3" label="COM_PROTIS_CONFIG_EPAS_URL" filter="url" />
+		<field name="epas_fallback_credentials" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="COM_PROTIS_CONFIG_EPAS_FALLBACK" description="COM_PROTIS_CONFIG_EPAS_FALLBACK_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="epas_autosync_on_open" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="COM_PROTIS_CONFIG_EPAS_AUTOSYNC" description="COM_PROTIS_CONFIG_EPAS_AUTOSYNC_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+	</fieldset>
+	<fieldset name="timesheet" label="COM_PROTIS_CONFIG_TIMESHEET">
+		<field name="table_palette" type="list" default="blu" label="COM_PROTIS_CONFIG_PALETTE" description="COM_PROTIS_CONFIG_PALETTE_DESC">
+			<option value="blu">COM_PROTIS_CONFIG_PALETTE_BLU</option>
+			<option value="v2">COM_PROTIS_CONFIG_PALETTE_V2</option>
+		</field>
+		<field name="pdflatex_path" type="text" default="/usr/bin/pdflatex" label="COM_PROTIS_CONFIG_PDFLATEX" />
+		<field name="lock_days" type="number" default="0" min="0" label="COM_PROTIS_CONFIG_LOCK_DAYS" description="COM_PROTIS_CONFIG_LOCK_DAYS_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" filter="rules" validate="rules" component="com_protis" section="component" />
+	</fieldset>
+</config>

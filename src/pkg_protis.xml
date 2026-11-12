@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="package" method="upgrade">
+	<name>PROTIS IBF</name>
+	<packagename>protis</packagename>
+	<author>Francesco Impallari (CNR-IBF)</author>
+	<creationDate>2026-11</creationDate>
+	<copyright>(C) CNR - Istituto di Biofisica</copyright>
+	<license>EUPL-1.2 - vedi LICENSE</license>
+	<authorUrl>https://github.com/frimpa/protis_ibf</authorUrl>
+	<version>3.21.0</version>
+	<description>PROTIS IBF – Rendicontazione delle ore sui progetti e timesheet per gli istituti CNR (componente, autenticazione LDAP CNR, comandi console ePAS/migrazione).</description>
+	<blockChildUninstall>true</blockChildUninstall>
+	<files folder="packages">
+		<file type="component" id="com_protis">com_protis.zip</file>
+		<file type="plugin" id="protisldap" group="authentication">plg_authentication_protisldap.zip</file>
+		<file type="plugin" id="protis" group="console">plg_console_protis.zip</file>
+		<file type="template" id="protis" client="site">tpl_protis.zip</file>
+	</files>
+	<scriptfile>pkg_script.php</scriptfile>
+</extension>

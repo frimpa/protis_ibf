@@ -1,0 +1,87 @@
+publiccodeYmlVersion: "0.4"
+
+name: PROTIS IBF
+url: "https://github.com/frimpa/protis_ibf"
+landingURL: "https://github.com/frimpa/protis_ibf"
+softwareVersion: "3.21.0"
+releaseDate: "2026-11-12"
+platforms:
+  - web
+
+categories:
+  - time-tracking
+  - project-management
+
+developmentStatus: stable
+softwareType: "addon"
+isBasedOn:
+  - "https://github.com/joomla/joomla-cms"
+
+description:
+  it:
+    localisedName: PROTIS IBF
+    genericName: Rendicontazione ore e timesheet di progetto
+    shortDescription: >-
+      Rendicontazione delle ore sui progetti di ricerca e produzione dei timesheet
+      mensili per gli istituti CNR, integrata con ePAS e LDAP CNR.
+    longDescription: >-
+      PROTIS IBF è un'applicazione web per gli istituti del Consiglio Nazionale delle
+      Ricerche che permette al personale di attribuire le ore lavorate ai work
+      package dei progetti di ricerca e di produrre i timesheet mensili da firmare
+      in PDF, Excel, ODS o CSV. Le presenze e le assenze sono lette
+      automaticamente da ePAS, il sistema di rilevazione delle presenze del CNR;
+      chi non timbra (borsisti, colleghi di altri istituti) le inserisce a mano.
+      L'accesso avviene con le credenziali istituzionali CNR tramite LDAP.
+
+      L'interfaccia è responsive e installabile come app (PWA). I responsabili
+      gestiscono progetti, work package, associazioni delle persone e
+      intestazione del timesheet di ogni progetto (loghi, righe, lingua),
+      conforme ai principali bandi nazionali ed europei, e seguono l'avanzamento
+      della rendicontazione in una dashboard per progetto e persona.
+
+      PROTIS IBF è distribuito come pacchetto per Joomla 6 e si installa su un
+      server Ubuntu con un solo script che configura anche HTTPS, la
+      sincronizzazione con ePAS e i backup.
+    features:
+      - Presenze e assenze sincronizzate da ePAS
+      - Inserimento manuale per chi non usa ePAS
+      - Accesso con LDAP CNR
+      - Timesheet PDF configurabile per progetto
+      - Export Excel, ODS e CSV
+      - Dashboard di rendicontazione per progetto e persona
+      - App installabile per smartphone e tablet
+      - Guida d'uso integrata
+
+legal:
+  license: EUPL-1.2
+  mainCopyrightOwner: Consiglio Nazionale delle Ricerche - Istituto di Biofisica
+  repoOwner: Francesco Impallari
+
+maintenance:
+  type: internal
+  contacts:
+    - name: Francesco Impallari
+      affiliation: CNR - Istituto di Biofisica
+
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - it
+
+dependsOn:
+  open:
+    - name: Joomla
+      versionMin: "6.0"
+    - name: PHP
+      versionMin: "8.3"
+    - name: MariaDB
+      versionMin: "10.4"
+    - name: TeX Live
+
+it:
+  countryExtensionVersion: "1.0"
+  piattaforme:
+    spid: false
+    pagopa: false
+    cie: false
+    anpr: false

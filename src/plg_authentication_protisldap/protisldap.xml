@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="authentication" method="upgrade">
+	<name>plg_authentication_protisldap</name>
+	<author>Francesco Impallari (CNR-IBF)</author>
+	<creationDate>2026-11</creationDate>
+	<copyright>(C) CNR - Istituto di Biofisica</copyright>
+	<license>EUPL-1.2 - vedi LICENSE</license>
+	<version>3.18.0</version>
+	<description>PLG_AUTHENTICATION_PROTISLDAP_XML_DESCRIPTION</description>
+	<namespace path="src">Cnr\Plugin\Authentication\ProtisLdap</namespace>
+	<files>
+		<folder plugin="protisldap">services</folder>
+		<folder>src</folder>
+	</files>
+	<languages>
+		<language tag="it-IT">language/it-IT/plg_authentication_protisldap.ini</language>
+		<language tag="it-IT">language/it-IT/plg_authentication_protisldap.sys.ini</language>
+		<language tag="en-GB">language/en-GB/plg_authentication_protisldap.ini</language>
+		<language tag="en-GB">language/en-GB/plg_authentication_protisldap.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="host" type="text" default="ldaps://hostingservice.src.cnr.it" label="PLG_PROTISLDAP_HOST" description="PLG_PROTISLDAP_HOST_DESC" required="true" />
+				<field name="port" type="number" default="" label="PLG_PROTISLDAP_PORT" description="PLG_PROTISLDAP_PORT_DESC" />
+				<field name="base_dn" type="text" default="o=cnr,c=it" label="PLG_PROTISLDAP_BASE_DN" required="true" />
+				<field name="bind_dn" type="text" default="" label="PLG_PROTISLDAP_BIND_DN" description="PLG_PROTISLDAP_BIND_DN_DESC" />
+				<field name="bind_password" type="password" default="" label="PLG_PROTISLDAP_BIND_PASSWORD" autocomplete="new-password" />
+				<field name="uid_attr" type="text" default="uid" label="PLG_PROTISLDAP_UID_ATTR" />
+				<field name="check_site" type="radio" layout="joomla.form.field.radio.switcher" default="1" label="PLG_PROTISLDAP_CHECK_SITE" description="PLG_PROTISLDAP_CHECK_SITE_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="ignore_cert" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="PLG_PROTISLDAP_IGNORE_CERT">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="debug" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="PLG_PROTISLDAP_DEBUG" description="PLG_PROTISLDAP_DEBUG_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

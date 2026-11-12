@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="template" client="site" method="upgrade">
+	<name>protis</name>
+	<version>3.2.0</version>
+	<creationDate>2026-11</creationDate>
+	<author>Francesco Impallari (CNR-IBF)</author>
+	<copyright>(C) CNR - Istituto di Biofisica</copyright>
+	<description>TPL_PROTIS_XML_DESCRIPTION</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>component.php</filename>
+		<filename>error.php</filename>
+		<filename>templateDetails.xml</filename>
+		<folder>html</folder>
+		<folder>language</folder>
+	</files>
+	<languages folder="language">
+		<language tag="it-IT">it-IT/tpl_protis.sys.ini</language>
+	</languages>
+</extension>

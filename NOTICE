@@ -1,0 +1,17 @@
+PROTIS IBF – Rendicontazione delle ore sui progetti e timesheet
+Copyright (C) 2026 Francesco Impallari / CNR - Istituto di Biofisica (IBF)
+
+Autore e responsabile del software: Ing. Francesco Impallari, CNR - Istituto di Biofisica.
+
+Licensed under the EUPL (European Union Public Licence v. 1.2) – vedi il file LICENSE.
+
+Il nome "PROTIS IBF" e le indicazioni di paternità (autore, Istituto di Biofisica del CNR) presenti nelle pagine
+dell'applicazione, nel presente file e nel README devono essere mantenuti in ogni copia, installazione o opera
+derivata (art. 5 EUPL, "Diritto di attribuzione").
+
+Gli istituti che adottano PROTIS IBF ne sono utilizzatori e nominano un referente locale per la propria
+installazione; le richieste di evoluzione e le segnalazioni si inviano al responsabile del software tramite
+https://github.com/frimpa/protis_ibf/issues.
+
+Componenti di terze parti: Joomla! (GPL-2.0-or-later, scaricato in fase di installazione);
+PhpSpreadsheet e dipendenze (MIT).

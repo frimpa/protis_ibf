@@ -176,7 +176,7 @@ final class PeopleService extends AbstractService
             ->select('(SELECT COUNT(*) FROM #__protis_assignments a WHERE a.person_id = p.id) AS n_progetti')
             ->from('#__protis_people AS p')
             ->join('LEFT', '#__protis_sites AS s', 's.id = p.site_id')
-            ->order('p.cognome, p.nome');
+            ->order("COALESCE(NULLIF(p.cognome, ''), p.uid), p.nome");
 
         if (!Acl::canManageAllSites()) {
             if (Acl::canManage() && $me && $me->site_id) {
@@ -332,6 +332,14 @@ final class PeopleService extends AbstractService
      * Elimina una persona inserita per errore: scheda, associazioni, presenze e il suo account Joomla.
      * Non si possono eliminare sé stessi, gli amministratori e chi ha già ore rendicontate (va disattivato).
      */
+    /** Nominativo da mostrare: cognome e nome, oppure lo username finché la persona non ha fatto il primo accesso. */
+    public static function displayName(object $p): string
+    {
+        $n = trim((string) ($p->cognome ?? '') . ' ' . (string) ($p->nome ?? ''));
+
+        return $n !== '' ? $n : (string) ($p->uid ?? '');
+    }
+
     public function delete(int $id, object $me): string
     {
         $p = $this->get($id);

@@ -14,7 +14,7 @@ $p = $this->item;
 $v = static fn (string $k) => htmlspecialchars((string) ($p->$k ?? ''));
 ?>
 <div class="pt-page-head">
-    <h1><?= $p ? htmlspecialchars($p->cognome . ' ' . $p->nome) : 'Nuova persona (senza account LDAP)' ?></h1>
+    <h1><?= $p ? htmlspecialchars(\Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($p)) : 'Nuova persona (senza account LDAP)' ?></h1>
     <a class="pt-btn pt-btn-ghost" href="<?= $this->link('view=people') ?>">← Persone</a>
 </div>
 
@@ -45,7 +45,7 @@ $v = static fn (string $k) => htmlspecialchars((string) ($p->$k ?? ''));
         <?php endif; ?>
         <?php if ($p && $p->source !== 'manual') : ?>
             <dl class="pt-kv pt-ldap-data">
-                <dt>Nominativo</dt><dd><?= htmlspecialchars(trim($p->cognome . ' ' . $p->nome)) ?: '–' ?></dd>
+                <dt>Nominativo</dt><dd><?= htmlspecialchars(trim($p->cognome . ' ' . $p->nome)) ?: '– <small class="pt-muted">(al primo accesso)</small>' ?></dd>
                 <dt>Email</dt><dd><?= $v('email') ?: '–' ?></dd>
                 <dt>Matricola CNR</dt><dd><?= $v('matricola') ?: '<span class="pt-muted">nessuna (presenze manuali)</span>' ?></dd>
             </dl>

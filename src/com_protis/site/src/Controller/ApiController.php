@@ -256,7 +256,7 @@ class ApiController extends BaseController
 
             $this->json(['success' => true, 'data' => array_map(static fn ($p) => [
                 'id'   => (int) $p->id,
-                'name' => trim($p->cognome . ' ' . $p->nome),
+                'name' => \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($p),
                 'uid'  => $p->uid,
                 'sede' => $p->sede_nome,
             ], $list)]);
@@ -296,7 +296,7 @@ class ApiController extends BaseController
 
             $on = $this->input->post->getBool('active');
             Services::people()->saveProfile((int) $person->id, ['active' => $on ? 1 : 0], true);
-            $this->json(['success' => true, 'message' => trim($person->cognome . ' ' . $person->nome) . ($on ? ': attivo.' : ': disattivato.')]);
+            $this->json(['success' => true, 'message' => \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($person) . ($on ? ': attivo.' : ': disattivato.')]);
         } catch (\Throwable $e) {
             $this->fail($e);
         }
@@ -316,7 +316,7 @@ class ApiController extends BaseController
             }
 
             $role = Services::roles()->setRole($person, $this->input->post->getCmd('role'), $me);
-            $this->json(['success' => true, 'role' => $role, 'message' => trim($person->cognome . ' ' . $person->nome) . ': '
+            $this->json(['success' => true, 'role' => $role, 'message' => \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($person) . ': '
                 . ($role === 'manager' ? 'ora è Responsabile (amministrativo). Vale dal suo prossimo accesso.' : 'ora è Utente.')]);
         } catch (\Throwable $e) {
             $this->fail($e);
@@ -344,7 +344,7 @@ class ApiController extends BaseController
             Services::people()->saveProfile((int) $person->id, ['epas_off' => $on ? 0 : 1], true);
             $person = Services::people()->get((int) $person->id);
             $reason = PeopleService::epasReason($person);
-            $this->json(['success' => true, 'reason' => $reason, 'message' => trim($person->cognome . ' ' . $person->nome) . ': '
+            $this->json(['success' => true, 'reason' => $reason, 'message' => \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($person) . ': '
                 . ($on ? ($reason ? 'ePAS attivato, ma ' . $reason . '.' : 'presenze lette da ePAS.') : 'presenze inserite a mano.')]);
         } catch (\Throwable $e) {
             $this->fail($e);

@@ -100,6 +100,12 @@ abstract class BaseHtmlView extends HtmlView
         $url = \Cnr\Component\Protis\Administrator\Service\PeopleService::avatarUrl($person);
         $ini = mb_substr((string) ($person->nome ?? ''), 0, 1) . mb_substr((string) ($person->cognome ?? ''), 0, 1);
 
+        if ($ini === '' && !empty($person->uid)) {
+            // prima del primo accesso: iniziali dallo username nome.cognome
+            $parts = preg_split('/[._-]+/', (string) $person->uid);
+            $ini   = mb_strtoupper(mb_substr($parts[0] ?? '', 0, 1) . mb_substr($parts[1] ?? '', 0, 1));
+        }
+
         return $url !== ''
             ? '<span class="pt-mini-avatar"><img src="' . htmlspecialchars($url) . '" alt="" loading="lazy"></span>'
             : '<span class="pt-mini-avatar is-empty" aria-hidden="true">' . htmlspecialchars($ini !== '' ? $ini : '?') . '</span>';

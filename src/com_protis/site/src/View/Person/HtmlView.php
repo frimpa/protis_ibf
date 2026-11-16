@@ -48,6 +48,6 @@ class HtmlView extends BaseHtmlView
         $this->assignments = $p ? Services::projects()->assignments(null, (int) $p->id) : [];
         $this->role        = $p ? Services::roles()->roleOf($p) : null;
         $this->reported    = $p ? Services::people()->reportedMinutes((int) $p->id) : 0;
-        $this->pageTitle   = $p ? trim($p->cognome . ' ' . $p->nome) : 'Nuova persona';
+        $this->pageTitle   = $p ? \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($p) : 'Nuova persona';
     }
 }

@@ -145,7 +145,7 @@ $siteTable = function (array $rows, bool $ext) {
                 <optgroup label="<?= htmlspecialchars($grp) ?>">
                 <?php if (!$list) : ?><option value="" disabled>nessun collega con la sede ePAS del suo istituto</option><?php endif; ?>
                 <?php foreach ($list as $p) :
-                    $lbl = trim($p->cognome . ' ' . $p->nome) . ' (' . $p->matricola . ')';
+                    $lbl = \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($p) . ' (' . $p->matricola . ')';
                     if (!empty($p->external)) {
                         $lbl .= ' – Altro istituto' . (trim(($p->epas_sigla ?? '') . ' ' . ($p->epas_sede ?? '')) !== '' ? ', ePAS ' . trim($p->epas_sigla . ' ' . $p->epas_sede) : '');
                     }

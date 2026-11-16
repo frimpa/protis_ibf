@@ -130,7 +130,7 @@ class ManageController extends BaseController
 
                 // nuova associazione: se esiste già non si tocca nulla (il monte ore si cambia dall'elenco)
                 if (!$edit && Services::projects()->assignmentExists($pid, $projectId)) {
-                    $already[] = trim($person->cognome . ' ' . $person->nome);
+                    $already[] = \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($person);
                     continue;
                 }
 
@@ -395,7 +395,7 @@ class ManageController extends BaseController
             }
 
             $res = Services::epas()->syncMonth($person, (int) date('Y'), (int) date('n'), Services::calendar());
-            $msg = \sprintf('Connessione ePAS riuscita: %d giorni letti per %s %s (%s).', $res['days'], $person->nome, $person->cognome, Time::monthName((int) date('n')) . ' ' . date('Y'));
+            $msg = \sprintf('Connessione ePAS riuscita: %d giorni letti per %s (%s).', $res['days'], \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($person), Time::monthName((int) date('n')) . ' ' . date('Y'));
             $this->app->setUserState('com_protis.epastest', ['type' => 'ok', 'text' => $msg, 'person' => $pid]);
         } catch (\Throwable $e) {
             $this->app->setUserState('com_protis.epastest', ['type' => 'danger', 'text' => 'Test ePAS non riuscito: ' . $e->getMessage(), 'person' => $pid]);
@@ -427,7 +427,7 @@ class ManageController extends BaseController
                     Services::epas()->syncMonth($p, $y, $m, Services::calendar());
                     $ok++;
                 } catch (\Throwable $e) {
-                    $errors[] = $p->cognome . ': ' . $e->getMessage();
+                    $errors[] = \Cnr\Component\Protis\Administrator\Service\PeopleService::displayName($p) . ': ' . $e->getMessage();
                 }
             }
 

@@ -1,5 +1,9 @@
 # Novità
 
+## 3.26.3 – novembre 2026
+
+- Colleghi abilitati per username che non hanno ancora fatto il primo accesso: al posto del nominativo vuoto compare lo **username** (es. mario.rossi) in Associazioni, Persone, scheda persona, test ePAS e messaggi; dopo il primo accesso compare il nome da LDAP. Nell'elenco sono ordinati per username.
+
 ## 3.26.2 – novembre 2026
 
 - Test connessione ePAS: il menu parte da *Scegli la persona…* (nessun nome preselezionato) e mostra sempre i due gruppi; se nessun collega esterno ha la sede ePAS impostata, il gruppo *Altri istituti* lo dice.

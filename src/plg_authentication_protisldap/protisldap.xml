@@ -5,7 +5,7 @@
 	<creationDate>2026-11</creationDate>
 	<copyright>(C) CNR - Istituto di Biofisica</copyright>
 	<license>EUPL-1.2 - vedi LICENSE</license>
-	<version>3.18.0</version>
+	<version>3.26.0</version>
 	<description>PLG_AUTHENTICATION_PROTISLDAP_XML_DESCRIPTION</description>
 	<namespace path="src">Cnr\Plugin\Authentication\ProtisLdap</namespace>
 	<files>

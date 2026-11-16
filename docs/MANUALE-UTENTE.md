@@ -17,9 +17,9 @@ Quello che si vede dipende dal ruolo:
 
 | Ruolo (gruppo Joomla) | Voci di menu | Cosa può fare |
 | --- | --- | --- |
-| Utente (Registered) | Home, Calendario, Associazioni, Profilo, Guida | Rendiconta le proprie ore, si associa ai progetti, genera i propri timesheet |
+| Utente (Registered) | Home, Calendario, Associazioni, Scrivania PDF, Profilo, Guida | Rendiconta le proprie ore, si associa ai progetti, genera i propri timesheet |
 | PROTIS Responsabili | in più Dashboard, Progetti, Persone, Codici assenza; Associazioni di tutti | Gestisce progetti, associazioni e calendari dei colleghi di tutte le sedi |
-| PROTIS Amministratori | in più Impostazioni, Registro | Tutto, comprese sedi, credenziali ePAS e registro attività |
+| PROTIS Amministratori | in più Impostazioni | Tutto, comprese sedi e credenziali ePAS |
 
 ## Accesso
 
@@ -121,6 +121,12 @@ Il **Profilo** contiene i tuoi dati per il timesheet:
 
 La data di assunzione serve per il monte ore annuo quando l'associazione non lo indica: 1520 ore nei primi 3 anni, poi 1506.
 
+## Scrivania PDF
+
+Se l'amministratore l'ha attivata, la voce **Scrivania PDF** (da smartphone sotto "Altro") apre uno strumento per lavorare sui PDF direttamente nel browser: firmare, aggiungere testo, evidenziare, coprire parti del documento, ruotare e riordinare le pagine, unire e dividere PDF. È utile, per esempio, per firmare il timesheet appena scaricato.
+
+I documenti **non vengono inviati al server**: restano sul tuo dispositivo e il PDF modificato si salva con un nuovo nome, senza toccare l'originale. "Apri a tutto schermo" la apre in una scheda a parte. La firma inserita è un'immagine, non una firma digitale qualificata.
+
 ## Domande frequenti
 
 **Le presenze ePAS di oggi non ci sono.** Premi "Aggiorna da ePAS" nel calendario. Se l'errore persiste, avvisa l'amministratore.
@@ -164,12 +170,14 @@ Nell'elenco le ore si correggono nei campi (compare Salva), "Azzera" svuota il v
 
 ## Persone
 
-**Persone** elenca il personale con foto, matricola, sede, contratto e numero di progetti; l'etichetta "ePAS" o "manuale" indica da dove arrivano le presenze. Una riga apre la scheda della persona:
+**Persone** è divisa in schede: **Personale** dell'istituto (con la sincronizzazione ePAS per tutti), **Altri istituti** (i colleghi esterni abilitati per username, con il modulo per abilitarne altri). Gli account tecnici (amministratori senza matricola né progetti, come l'utente amministratore di Joomla) non compaiono perché non rendicontano. Ogni scheda elenca le persone con foto, matricola, sede, contratto e numero di progetti; l'etichetta "ePAS" o "manuale" indica da dove arrivano le presenze. Una riga apre la scheda della persona:
 
-- interruttore **Attivo / Disattivato** in alto a destra: una persona disattivata non accede e non viene sincronizzata;
+- interruttore **Attivo / Disattivato** in alto a destra: una persona disattivata non può accedere, nemmeno con le credenziali CNR, e non viene sincronizzata da ePAS; riaccendendo l'interruttore torna come prima;
 - dati LDAP in sola lettura; codice fiscale, data di assunzione, contratto e sede modificabili;
+- riquadro **Ruolo in PROTIS IBF**: *Utente* (gruppo Registered) oppure *Responsabile (amministrativo)* (gruppo PROTIS Responsabili), salvato subito. Così un responsabile può abilitare un collega alla gestione senza passare dall'amministrazione di Joomla. Ogni nuova persona entra come *Utente*; dopo il suo primo accesso la si può rendere *Responsabile*, e il cambio vale dal suo accesso successivo. Non si può cambiare il proprio ruolo né quello degli amministratori;
 - riquadro **Presenze**: interruttore **Da ePAS / Inserimento manuale**, che salva subito. Spento, la persona compila a mano il calendario anche se ha la matricola (es. un borsista); senza matricola resta sempre manuale;
-- Progetti associati, con le ore modificabili, e "Aggiungi una nuova associazione".
+- Progetti associati, con le ore modificabili, e "Aggiungi una nuova associazione";
+- solo per i colleghi di altri istituti, il pulsante **Elimina persona** (vedi le domande frequenti).
 
 **Colleghi di altri istituti CNR.** Per far rendicontare su PROTIS IBF un collega di un altro istituto:
 
@@ -205,7 +213,9 @@ Lavoro Agile, Telelavoro e Missione contano come ore rendicontabili; Malattia, F
 
 **Come abilito un collega di un altro istituto?** Persone → + Abilita colleghi di altri istituti CNR, con il suo username, poi associalo al progetto (o lo fa lui da Associazioni).
 
-**Come rendo qualcuno responsabile?** In Joomla, Utenti: aggiungi la persona al gruppo PROTIS Responsabili.
+**Ho abilitato per errore un collega di un altro istituto: come lo tolgo?** Nella sua scheda premi **Elimina persona** (in basso a sinistra) e conferma: si cancellano scheda, associazioni, presenze e account. Si può fare solo per i colleghi di altri istituti e solo se non hanno ore rendicontate. In tutti gli altri casi spegni l'interruttore **Attivo**: la persona non può più accedere, nemmeno con le credenziali CNR, finché non la riattivi.
+
+**Come rendo qualcuno responsabile?** Nella sua scheda in Persone, riquadro *Ruolo in PROTIS IBF*, scegli *Responsabile (amministrativo)*. Vale dal suo prossimo accesso.
 
 ## Impostazioni (amministratori)
 
@@ -216,7 +226,7 @@ Lavoro Agile, Telelavoro e Missione contano come ore rendicontabili; Malattia, F
 - **ePAS di altri istituti (colleghi esterni)**: le sedi degli istituti dei colleghi esterni, con il loro codice sede e le credenziali ePAS di quell'istituto. Servono solo a leggere le presenze di quei colleghi: non abilitano l'accesso del loro personale e non compaiono tra le sedi dell'istituto.
 - **Test connessione ePAS**: sincronizza il mese corrente di una persona e mostra l'esito.
 
-"Opzioni avanzate e permessi" apre le opzioni del componente in Joomla (ruoli, permessi, blocco dei mesi passati). **Registro** elenca le operazioni fatte in PROTIS IBF (sincronizzazioni, modifiche, accessi).
+"Opzioni avanzate e permessi" apre le opzioni del componente in Joomla (ruoli, permessi, blocco dei mesi passati). Le operazioni (sincronizzazioni, modifiche) restano registrate nel database; gli errori del server sono nei log di Apache e in `/var/log/protis/`.
 
 **Ruoli.** Si assegnano in Joomla, in Utenti, con i gruppi: Registered (utenti), PROTIS Responsabili, PROTIS Amministratori.
 

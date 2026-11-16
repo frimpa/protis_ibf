@@ -28,7 +28,7 @@ $v = static fn (string $k) => htmlspecialchars((string) ($p->$k ?? ''));
             <?php if ($p) : ?><?= $this->miniAvatar($p) ?><?php endif; ?>
             <h2 class="pt-card-title">Anagrafica</h2>
             <?php if ($p) : ?>
-                <label class="pt-switch pt-switch-right <?= $p->active ? 'is-on' : '' ?>" data-switch data-autosave="api.togglePerson" data-id="<?= (int) $p->id ?>" title="Una persona disattivata non può accedere e non viene sincronizzata da ePAS">
+                <label class="pt-switch pt-switch-right <?= $p->active ? 'is-on' : '' ?>" data-switch data-autosave="api.togglePerson" data-id="<?= (int) $p->id ?>" title="Una persona disattivata non può accedere (nemmeno con le credenziali CNR) e non viene sincronizzata da ePAS, finché non viene riattivata">
                     <input type="hidden" name="jform[active]" value="0">
                     <input type="checkbox" name="jform[active]" value="1" <?= $p->active ? 'checked' : '' ?>>
                     <span class="pt-switch-track" aria-hidden="true"><span class="pt-switch-thumb"></span></span>
@@ -84,6 +84,36 @@ $v = static fn (string $k) => htmlspecialchars((string) ($p->$k ?? ''));
             <label class="pt-check"><input type="hidden" name="jform[external]" value="0"><input type="checkbox" name="jform[external]" value="1" data-ext-toggle <?= !empty($p->external) ? 'checked' : '' ?>> Collega di altro istituto (accesso per username)</label>
         <?php endif; ?>
         <?php if ($p) :
+            $isSelf = (int) $p->id === (int) ($this->me->id ?? 0); ?>
+            <div class="pt-epas-box pt-role-box">
+                <div class="pt-epas-box-head">
+                    <strong>Ruolo in PROTIS IBF</strong>
+                    <?php if ($this->role === null) : ?>
+                        <select class="pt-input pt-role-select" disabled aria-label="Ruolo in PROTIS IBF"><option selected>Utente</option></select>
+                    <?php elseif ($this->role === 'admin') : ?>
+                        <span class="pt-chip pt-chip-ok">Amministratore</span>
+                    <?php else : ?>
+                        <select class="pt-input pt-role-select" data-role-select data-id="<?= (int) $p->id ?>" <?= $isSelf ? 'disabled' : '' ?> aria-label="Ruolo in PROTIS IBF">
+                            <option value="user" <?= $this->role === 'user' ? 'selected' : '' ?>>Utente</option>
+                            <option value="manager" <?= $this->role === 'manager' ? 'selected' : '' ?>>Responsabile (amministrativo)</option>
+                        </select>
+                    <?php endif; ?>
+                </div>
+                <small class="pt-help">
+                    <?php if ($this->role === null) : ?>
+                        Al primo accesso entra come <strong>Utente</strong> (gruppo Registered). Dopo quel primo accesso potrai renderla <strong>Responsabile</strong> da qui.
+                    <?php elseif ($this->role === 'admin') : ?>
+                        Gli amministratori si gestiscono dall'amministrazione di Joomla (Utenti).
+                    <?php elseif ($isSelf) : ?>
+                        Non puoi modificare il tuo ruolo.
+                    <?php else : ?>
+                        <strong>Utente</strong>: proprio calendario, associazioni e timesheet (gruppo Registered).
+                        <strong>Responsabile</strong>: in più progetti, associazioni, persone e calendari di tutti (gruppo PROTIS Responsabili). Il cambio vale dal prossimo accesso della persona.
+                    <?php endif; ?>
+                </small>
+            </div>
+        <?php endif; ?>
+        <?php if ($p) :
             $hasMatr = !empty($p->matricola);
             $epasOn  = $hasMatr && empty($p->epas_off);
             $reason  = \Cnr\Component\Protis\Administrator\Service\PeopleService::epasReason($p); ?>
@@ -110,8 +140,26 @@ $v = static fn (string $k) => htmlspecialchars((string) ($p->$k ?? ''));
                 <small class="pt-help" data-epas-reason><?= $reason ? htmlspecialchars(ucfirst($reason)) . '.' : 'Le presenze vengono lette da ePAS (sincronizzazione automatica); il calendario non è modificabile a mano.' ?></small>
             </div>
         <?php endif; ?>
-        <div class="pt-form-actions"><button class="pt-btn pt-btn-primary">Salva</button></div>
+        <div class="pt-form-actions pt-actions-split">
+            <?php if ($p && !empty($p->external) && (int) $p->id !== (int) ($this->me->id ?? 0) && $this->role !== 'admin') : ?>
+                <?php if ($this->reported === 0) : ?>
+                    <button type="submit" form="pt-del-person" class="pt-btn pt-btn-ghost pt-danger">Elimina persona</button>
+                <?php else : ?>
+                    <span class="pt-del-locked">
+                        <button type="button" class="pt-btn pt-btn-ghost pt-danger" disabled aria-describedby="pt-del-why">Elimina persona</button>
+                        <small id="pt-del-why" class="pt-help">Non eliminabile: ha ore rendicontate. Per toglierla dall'uso spegni l'interruttore <strong>Attivo</strong> in alto: da disattivata non può più accedere, finché non la riattivi.</small>
+                    </span>
+                <?php endif; ?>
+            <?php else : ?><span></span><?php endif; ?>
+            <button class="pt-btn pt-btn-primary">Salva</button>
+        </div>
     </form>
+    <?php if ($p && !empty($p->external) && $this->reported === 0 && (int) $p->id !== (int) ($this->me->id ?? 0) && $this->role !== 'admin') : ?>
+        <form id="pt-del-person" method="post" action="<?= $this->link('task=manage.deletePerson') ?>" hidden
+              data-confirm="Eliminare <?= htmlspecialchars(trim($p->cognome . ' ' . $p->nome) ?: $p->uid) ?>? Vengono eliminati anche le sue associazioni, le presenze e l'account. L'operazione non si può annullare.">
+            <input type="hidden" name="id" value="<?= (int) $p->id ?>"><input type="hidden" name="<?= $this->token() ?>" value="1">
+        </form>
+    <?php endif; ?>
 
     <?php if ($p) : ?>
         <section class="pt-card">
@@ -154,7 +202,7 @@ $v = static fn (string $k) => htmlspecialchars((string) ($p->$k ?? ''));
 <script>
 // testo sotto l'interruttore Presenze, aggiornato mentre si modifica la scheda
 function epasReason() {
-  const box = document.querySelector('.pt-epas-box');
+  const box = document.querySelector('.pt-epas-box:not(.pt-role-box)');
   if (!box) return;
   const why = box.querySelector('[data-epas-reason]');
   const on = box.querySelector('.pt-switch input').checked;
@@ -166,7 +214,17 @@ function epasReason() {
     : ext ? 'Le presenze vengono lette dall\'ePAS del suo istituto dopo il salvataggio.'
     : 'Le presenze vengono lette da ePAS (sincronizzazione automatica); il calendario non è modificabile a mano.';
 }
-document.addEventListener('change', (e) => { if (e.target.closest('.pt-epas-box')) setTimeout(epasReason, 0); });
+document.addEventListener('change', (e) => { if (e.target.closest('.pt-epas-box:not(.pt-role-box)')) setTimeout(epasReason, 0); });
+// ruolo: salvataggio immediato
+document.querySelector('[data-role-select]')?.addEventListener('change', (e) => {
+  const s = e.target, prev = s.dataset.prev ?? (s.value === 'user' ? 'manager' : 'user');
+  s.disabled = true;
+  Protis.api('api.setPersonRole', {}, 'POST', { id: s.dataset.id, role: s.value })
+    .then((r) => { Protis.toast(r.message || 'Salvato'); s.dataset.prev = s.value; })
+    .catch((err) => { Protis.toast(err.message, 'error', 7000); s.value = prev; })
+    .finally(() => { s.disabled = false; });
+});
+document.querySelectorAll('[data-role-select]').forEach((s) => { s.dataset.prev = s.value; });
 (() => {
   // altro istituto: istituto e sede al posto della sede dell'istituto (che viene azzerata)
   const t = document.querySelector('[data-ext-toggle]');

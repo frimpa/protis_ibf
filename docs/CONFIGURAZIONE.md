@@ -13,6 +13,7 @@ Amministrazione Joomla → **Componenti → PROTIS IBF → Opzioni** (oppure in 
 | Istituto | `CNR - Istituto di Biofisica` | Piè di pagina e valore predefinito di "Ente / Beneficiario" nei progetti |
 | Scritte accanto al logo | `Consiglio Nazionale delle Ricerche` / `Istituto di Biofisica` | Intestazione e pagina di accesso |
 | Logo dell'applicazione | `images/logo/mio-logo.png` | Vuoto = logo PROTIS IBF incluso. PNG con sfondo trasparente |
+| Scrivania PDF: file sul server | `/var/www/protis_apps/scrivania_pdf/index.html` | Facoltativo. Percorso dell'`index.html` di [Scrivania PDF](https://github.com/frimpa/scrivaniaPDF), meglio fuori dalla cartella pubblica: PROTIS IBF lo mostra solo agli utenti collegati, con la voce di menu *Scrivania PDF* |
 | Supporto: nome ed email | `Mario Rossi`, `mario.rossi@cnr.it` | **Referente locale** di PROTIS IBF nel vostro istituto: compare alla voce "Problemi di accesso?" della pagina di accesso |
 | Colori | `#0b4f8a`, `#ffc300` | Colore principale e d'accento |
 | URL REST ePAS | `https://epas4clients.amministrazione.cnr.it/rest/v3` | Da cambiare solo se il CNR lo modifica |
@@ -68,7 +69,7 @@ esclusione da *Riempi/Distribuisci* per le assenze di giornata intera.
 
 ## 5. Ruoli
 
-Si assegnano in Joomla → **Utenti → Gestione** aggiungendo la persona (dopo il suo primo accesso) a un gruppo:
+Utente e Responsabile si assegnano direttamente in PROTIS IBF, nella scheda della persona (riquadro *Ruolo in PROTIS IBF*), da qualunque responsabile o amministratore. Gli amministratori si assegnano in Joomla → **Utenti → Gestione**. In entrambi i casi la persona deve aver fatto almeno un accesso:
 
 | Gruppo | Permessi |
 |---|---|

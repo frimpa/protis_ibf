@@ -6,6 +6,7 @@
 		<field name="brand_ente" type="text" default="Consiglio Nazionale delle Ricerche" label="COM_PROTIS_CONFIG_BRAND_ENTE" description="COM_PROTIS_CONFIG_BRAND_DESC" />
 		<field name="brand_istituto" type="text" default="" label="COM_PROTIS_CONFIG_BRAND_ISTITUTO" description="COM_PROTIS_CONFIG_BRAND_DESC" />
 		<field name="app_logo" type="text" default="" label="COM_PROTIS_CONFIG_APP_LOGO" description="COM_PROTIS_CONFIG_APP_LOGO_DESC" />
+		<field name="scrivania_path" type="text" default="" label="COM_PROTIS_CONFIG_SCRIVANIA" description="COM_PROTIS_CONFIG_SCRIVANIA_DESC" />
 		<field name="support_name" type="text" default="" label="COM_PROTIS_CONFIG_SUPPORT_NAME" description="COM_PROTIS_CONFIG_SUPPORT_DESC" />
 		<field name="support_email" type="email" default="" label="COM_PROTIS_CONFIG_SUPPORT_EMAIL" description="COM_PROTIS_CONFIG_SUPPORT_DESC" />
 		<field name="theme_color" type="color" default="#0b4f8a" label="COM_PROTIS_CONFIG_THEME_COLOR" />

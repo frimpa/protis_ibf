@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
   "name": "com_protis",
-  "version": "3.21.0",
+  "version": "3.26.2",
   "description": "PROTIS IBF V.3",
   "license": "Proprietary",
   "assets": [
@@ -9,7 +9,7 @@
       "name": "com_protis.app",
       "type": "style",
       "uri": "com_protis/protis.css",
-      "version": "3.21.0"
+      "version": "3.26.2"
     },
     {
       "name": "com_protis.app",
@@ -17,7 +17,7 @@
       "uri": "com_protis/protis-app.js",
       "dependencies": ["core"],
       "attributes": { "defer": true },
-      "version": "3.21.0"
+      "version": "3.26.2"
     },
     {
       "name": "com_protis.calendar",
@@ -25,7 +25,7 @@
       "uri": "com_protis/protis-calendar.js",
       "dependencies": ["com_protis.app"],
       "attributes": { "defer": true },
-      "version": "3.21.0"
+      "version": "3.26.2"
     }
   ]
 }

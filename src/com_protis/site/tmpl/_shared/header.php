@@ -30,7 +30,10 @@ if ($this->canManage) {
 
 if ($this->isAdmin) {
     $items[] = ['settings', 'Impostazioni', 'index.php?option=com_protis&view=settings', 'gear', false];
-    $items[] = ['log', 'Registro', 'index.php?option=com_protis&view=log', 'list', false];
+}
+
+if (\Cnr\Component\Protis\Site\Controller\ToolsController::scrivaniaFile() !== null) {
+    $items[] = ['scrivania', 'Scrivania PDF', 'index.php?option=com_protis&view=scrivania', 'pdf', false];
 }
 
 $items[] = ['profile', 'Profilo', 'index.php?option=com_protis&view=profile', 'user', true];
@@ -41,7 +44,7 @@ $helpAnchor = [
     'home' => 'home', 'calendar' => 'calendario', 'profile' => 'profilo',
     'assignments' => $this->canManage ? 'associazioni-responsabili' : 'associazioni',
     'projects' => 'progetti', 'project' => 'progetti', 'people' => 'persone', 'person' => 'persone',
-    'report' => 'dashboard', 'codes' => 'codici', 'settings' => 'impostazioni', 'log' => 'impostazioni',
+    'report' => 'dashboard', 'codes' => 'codici', 'settings' => 'impostazioni', 'scrivania' => 'scrivania',
 ][$this->active] ?? '';
 
 $icon = static function (string $name): string {
@@ -57,6 +60,7 @@ $icon = static function (string $name): string {
         'list'     => '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
         'user'     => '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
         'help'     => '<circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.7 2.4-2.7 4"/><path d="M12 17.3h.01"/>',
+        'pdf'      => '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/>',
         'more'     => '<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
     ][$name] ?? '';
 

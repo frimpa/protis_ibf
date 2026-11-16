@@ -29,12 +29,14 @@ Nell'elenco le ore si correggono nei campi (compare Salva), "Azzera" svuota il v
 
 ## Persone {#persone}
 
-**Persone** elenca il personale con foto, matricola, sede, contratto e numero di progetti; l'etichetta "ePAS" o "manuale" indica da dove arrivano le presenze. Una riga apre la scheda della persona:
+**Persone** è divisa in schede: **Personale** dell'istituto (con la sincronizzazione ePAS per tutti), **Altri istituti** (i colleghi esterni abilitati per username, con il modulo per abilitarne altri). Gli account tecnici (amministratori senza matricola né progetti, come l'utente amministratore di Joomla) non compaiono perché non rendicontano. Ogni scheda elenca le persone con foto, matricola, sede, contratto e numero di progetti; l'etichetta "ePAS" o "manuale" indica da dove arrivano le presenze. Una riga apre la scheda della persona:
 
-- interruttore **Attivo / Disattivato** in alto a destra: una persona disattivata non accede e non viene sincronizzata;
+- interruttore **Attivo / Disattivato** in alto a destra: una persona disattivata non può accedere, nemmeno con le credenziali CNR, e non viene sincronizzata da ePAS; riaccendendo l'interruttore torna come prima;
 - dati LDAP in sola lettura; codice fiscale, data di assunzione, contratto e sede modificabili;
+- riquadro **Ruolo in PROTIS IBF**: *Utente* (gruppo Registered) oppure *Responsabile (amministrativo)* (gruppo PROTIS Responsabili), salvato subito. Così un responsabile può abilitare un collega alla gestione senza passare dall'amministrazione di Joomla. Ogni nuova persona entra come *Utente*; dopo il suo primo accesso la si può rendere *Responsabile*, e il cambio vale dal suo accesso successivo. Non si può cambiare il proprio ruolo né quello degli amministratori;
 - riquadro **Presenze**: interruttore **Da ePAS / Inserimento manuale**, che salva subito. Spento, la persona compila a mano il calendario anche se ha la matricola (es. un borsista); senza matricola resta sempre manuale;
-- Progetti associati, con le ore modificabili, e "Aggiungi una nuova associazione".
+- Progetti associati, con le ore modificabili, e "Aggiungi una nuova associazione";
+- solo per i colleghi di altri istituti, il pulsante **Elimina persona** (vedi le domande frequenti).
 
 **Colleghi di altri istituti CNR.** Per far rendicontare su PROTIS IBF un collega di un altro istituto:
 
@@ -70,4 +72,6 @@ Lavoro Agile, Telelavoro e Missione contano come ore rendicontabili; Malattia, F
 
 **Come abilito un collega di un altro istituto?** Persone → + Abilita colleghi di altri istituti CNR, con il suo username, poi associalo al progetto (o lo fa lui da Associazioni).
 
-**Come rendo qualcuno responsabile?** In Joomla, Utenti: aggiungi la persona al gruppo PROTIS Responsabili.
+**Ho abilitato per errore un collega di un altro istituto: come lo tolgo?** Nella sua scheda premi **Elimina persona** (in basso a sinistra) e conferma: si cancellano scheda, associazioni, presenze e account. Si può fare solo per i colleghi di altri istituti e solo se non hanno ore rendicontate. In tutti gli altri casi spegni l'interruttore **Attivo**: la persona non può più accedere, nemmeno con le credenziali CNR, finché non la riattivi.
+
+**Come rendo qualcuno responsabile?** Nella sua scheda in Persone, riquadro *Ruolo in PROTIS IBF*, scegli *Responsabile (amministrativo)*. Vale dal suo prossimo accesso.

@@ -100,4 +100,4 @@ dump con `gunzip -c db-….sql.gz | mysql protis`, ripristinare i file. **Conser
 |---|---|
 | `/var/log/protis/epas-sync.log` | Esito delle sincronizzazioni ePAS |
 | `/var/log/protis/backup.log` | Esito dei backup |
-| PROTIS IBF → Registro | Operazioni fatte nell'app |
+| `/var/log/apache2/error.log` | Errori di PHP e del sito |

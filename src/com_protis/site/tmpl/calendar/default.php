@@ -40,7 +40,7 @@ $p = $this->person;
                     <select data-act="person">
                         <?php foreach ($this->people as $pp) : ?>
                             <option value="<?= (int) $pp->id ?>" <?= (int) $pp->id === (int) $p->id ? 'selected' : '' ?>>
-                                <?= htmlspecialchars(trim($pp->cognome . ' ' . $pp->nome) ?: $pp->uid) ?><?= $pp->sede_nome ? ' · ' . htmlspecialchars($pp->sede_nome) : '' ?>
+                                <?= htmlspecialchars(trim($pp->cognome . ' ' . $pp->nome) ?: $pp->uid) ?><?= !empty($pp->external) ? ' (Altro istituto)' : ($pp->sede_nome ? ' · ' . htmlspecialchars($pp->sede_nome) : '') ?>
                             </option>
                         <?php endforeach; ?>
                     </select>

@@ -302,6 +302,27 @@ class ApiController extends BaseController
         }
     }
 
+    /** Ruolo della persona (utente / responsabile amministrativo) dalla scheda persona. */
+    public function setPersonRole(): void
+    {
+        try {
+            $this->requireToken();
+            $this->requireManager();
+            $me     = $this->me();
+            $person = Services::people()->get($this->input->post->getInt('id'));
+
+            if (!$me || !$person || !Services::people()->canAccess($me, $person)) {
+                throw new \RuntimeException('Persona non gestibile.', 403);
+            }
+
+            $role = Services::roles()->setRole($person, $this->input->post->getCmd('role'), $me);
+            $this->json(['success' => true, 'role' => $role, 'message' => trim($person->cognome . ' ' . $person->nome) . ': '
+                . ($role === 'manager' ? 'ora è Responsabile (amministrativo). Vale dal suo prossimo accesso.' : 'ora è Utente.')]);
+        } catch (\Throwable $e) {
+            $this->fail($e);
+        }
+    }
+
     /** Interruttore "Presenze da ePAS" / "Inserimento manuale" della scheda persona. */
     public function togglePersonEpas(): void
     {

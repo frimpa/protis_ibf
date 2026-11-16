@@ -19,15 +19,38 @@ class HtmlView extends BaseHtmlView
     public array $items = [];
     public array $sites = [];
     public array $contracts = [];
+    /** @var array<int,string> person_id => manager|admin */
+    public array $roles = [];
     public string $search = '';
+    /** scheda mostrata: ist = personale dell'istituto, ext = altri istituti, tech = account tecnici */
+    public string $tab = 'ist';
+    /** @var array<string,int> */
+    public array $counts = ['ist' => 0, 'ext' => 0, 'tech' => 0];
+    public string $sigla = '';
 
     protected function prepare(): void
     {
         $this->active    = 'people';
         $this->pageTitle = 'Persone';
         $this->search    = Factory::getApplication()->getInput()->getString('q', '');
-        $this->items     = Services::people()->listVisible($this->me, $this->search);
+        $all             = Services::people()->listVisible($this->me, $this->search);
+        $this->roles     = Services::roles()->rolesFor($all);
         $this->sites     = Services::people()->instituteSites();
+        $this->sigla     = trim((string) ($this->sites[0]->sigla ?? ''));
+
+        // account tecnici: amministratori senza matricola (es. l'utente amministratore di Joomla), non rendicontano
+        $groups = ['ist' => [], 'ext' => [], 'tech' => []];
+
+        foreach ($all as $p) {
+            $key = (($this->roles[(int) $p->id] ?? '') === 'admin' && empty($p->matricola) && !(int) $p->n_progetti)
+                ? 'tech' : (!empty($p->external) ? 'ext' : 'ist');
+            $groups[$key][] = $p;
+        }
+
+        $this->counts = array_map('count', $groups);
+        $tab          = Factory::getApplication()->getInput()->getCmd('gruppo', 'ist');
+        $this->tab    = \in_array($tab, ['ist', 'ext'], true) ? $tab : 'ist';
+        $this->items  = $groups[$this->tab];
         $this->contracts = Services::people()->contractTypes();
     }
 }

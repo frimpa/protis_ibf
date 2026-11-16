@@ -19,7 +19,10 @@ trait ProtisControllerTrait
 {
     protected function me(): ?object
     {
-        return Services::people()->forUser(Acl::user());
+        $me = Services::people()->forUser(Acl::user());
+
+        // persona disattivata: per PROTIS IBF è come non collegata (il super utente resta sempre attivo)
+        return $me && isset($me->active) && !(int) $me->active && !Acl::isSuperUser() ? null : $me;
     }
 
     /** Persona richiesta (parametro person) se l'utente può accedervi, altrimenti sé stesso. */

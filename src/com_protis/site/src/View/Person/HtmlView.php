@@ -23,6 +23,10 @@ class HtmlView extends BaseHtmlView
     public array $sites = [];
 
     public array $epasSites = [];
+    /** Ruolo PROTIS IBF dell'account: user, manager, admin; null = nessun account ancora */
+    public ?string $role = null;
+    /** minuti già rendicontati sui progetti */
+    public int $reported = 0;
     public array $contracts = [];
     public array $layouts = ProjectService::LAYOUTS;
 
@@ -42,6 +46,8 @@ class HtmlView extends BaseHtmlView
         $this->contracts   = Services::people()->contractTypes();
         $this->projects    = Services::projects()->list(true);
         $this->assignments = $p ? Services::projects()->assignments(null, (int) $p->id) : [];
+        $this->role        = $p ? Services::roles()->roleOf($p) : null;
+        $this->reported    = $p ? Services::people()->reportedMinutes((int) $p->id) : 0;
         $this->pageTitle   = $p ? trim($p->cognome . ' ' . $p->nome) : 'Nuova persona';
     }
 }

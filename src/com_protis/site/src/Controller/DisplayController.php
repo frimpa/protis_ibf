@@ -20,7 +20,7 @@ class DisplayController extends BaseController
 
     /** Viste riservate ai responsabili / amministratori */
     private const MANAGER_VIEWS = ['projects', 'project', 'people', 'person', 'report', 'codes'];
-    private const ADMIN_VIEWS   = ['settings', 'log'];
+    private const ADMIN_VIEWS   = ['settings', 'log']; // log: vista rimossa nella 3.22.1, i file restano nelle installazioni aggiornate
 
     public function display($cachable = false, $urlparams = [])
     {
@@ -36,6 +36,17 @@ class DisplayController extends BaseController
             }
 
             return parent::display(false, $urlparams);
+        }
+
+        // persona disattivata in PROTIS IBF: si chiude la sessione (vale anche per gli account senza LDAP)
+        $me = \Cnr\Component\Protis\Administrator\Service\Services::people()->forUser($user);
+
+        if ($me && isset($me->active) && !(int) $me->active && !Acl::isSuperUser($user)) {
+            $app = \Joomla\CMS\Factory::getApplication();
+            $app->logout();
+            $this->setRedirect(Route::_('index.php?option=com_protis&view=login', false), 'Il tuo profilo in PROTIS IBF è disattivato. Rivolgiti al referente di PROTIS IBF.', 'warning');
+
+            return $this;
         }
 
         if ($view === 'login') {

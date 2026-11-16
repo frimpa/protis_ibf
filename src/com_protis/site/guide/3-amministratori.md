@@ -7,7 +7,7 @@
 - **ePAS di altri istituti (colleghi esterni)**: le sedi degli istituti dei colleghi esterni, con il loro codice sede e le credenziali ePAS di quell'istituto. Servono solo a leggere le presenze di quei colleghi: non abilitano l'accesso del loro personale e non compaiono tra le sedi dell'istituto.
 - **Test connessione ePAS**: sincronizza il mese corrente di una persona e mostra l'esito.
 
-"Opzioni avanzate e permessi" apre le opzioni del componente in Joomla (ruoli, permessi, blocco dei mesi passati). **Registro** elenca le operazioni fatte in PROTIS IBF (sincronizzazioni, modifiche, accessi).
+"Opzioni avanzate e permessi" apre le opzioni del componente in Joomla (ruoli, permessi, blocco dei mesi passati). Le operazioni (sincronizzazioni, modifiche) restano registrate nel database; gli errori del server sono nei log di Apache e in `/var/log/protis/`.
 
 **Ruoli.** Si assegnano in Joomla, in Utenti, con i gruppi: Registered (utenti), PROTIS Responsabili, PROTIS Amministratori.
 

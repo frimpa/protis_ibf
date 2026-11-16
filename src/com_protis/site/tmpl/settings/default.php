@@ -126,14 +126,32 @@ $siteTable = function (array $rows, bool $ext) {
 
 <section class="pt-card" id="pt-epas-test">
     <h2 class="pt-card-title">Test connessione ePAS</h2>
-    <p class="pt-help" style="margin-bottom:.6rem">Legge da ePAS le presenze del mese corrente della persona scelta e le aggiorna nel suo calendario.</p>
+    <p class="pt-help" style="margin-bottom:.6rem">Legge da ePAS le presenze del mese corrente della persona scelta e le aggiorna nel suo calendario. Compaiono le persone attive con matricola e presenze «Da ePAS»; i colleghi di altri istituti solo dopo aver scelto, nella loro scheda, la sede ePAS del loro istituto.</p>
     <?php if ($this->epasTest) : ?>
         <div class="pt-alert pt-alert-<?= $this->epasTest['type'] === 'ok' ? 'ok' : 'danger' ?>" role="status" style="margin-bottom:.75rem"><?= htmlspecialchars($this->epasTest['text']) ?></div>
     <?php endif; ?>
     <form class="pt-toolbar" method="post" action="<?= $this->link('task=manage.testEpas') ?>">
         <input type="hidden" name="<?= $this->token() ?>" value="1">
         <select name="person_id" class="pt-input" required aria-label="Persona">
-            <?php foreach ($this->epasPeople as $p) : ?><option value="<?= (int) $p->id ?>" <?= (int) ($this->epasTest['person'] ?? 0) === (int) $p->id ? 'selected' : '' ?>><?= htmlspecialchars($p->cognome . ' ' . $p->nome . ' (' . $p->matricola . ')') ?></option><?php endforeach; ?>
+            <?php
+            $epasGroups = ['Personale dell\'istituto' => [], 'Altri istituti' => []];
+            foreach ($this->epasPeople as $p) {
+                $epasGroups[empty($p->external) ? 'Personale dell\'istituto' : 'Altri istituti'][] = $p;
+            }
+            $epasSel = (int) ($this->epasTest['person'] ?? 0);
+            ?>
+            <option value="" disabled <?= $epasSel ? '' : 'selected' ?>>Scegli la persona…</option>
+            <?php foreach ($epasGroups as $grp => $list) : ?>
+                <optgroup label="<?= htmlspecialchars($grp) ?>">
+                <?php if (!$list) : ?><option value="" disabled>nessun collega con la sede ePAS del suo istituto</option><?php endif; ?>
+                <?php foreach ($list as $p) :
+                    $lbl = trim($p->cognome . ' ' . $p->nome) . ' (' . $p->matricola . ')';
+                    if (!empty($p->external)) {
+                        $lbl .= ' – Altro istituto' . (trim(($p->epas_sigla ?? '') . ' ' . ($p->epas_sede ?? '')) !== '' ? ', ePAS ' . trim($p->epas_sigla . ' ' . $p->epas_sede) : '');
+                    }
+                ?><option value="<?= (int) $p->id ?>" <?= $epasSel === (int) $p->id ? 'selected' : '' ?>><?= htmlspecialchars($lbl) ?></option><?php endforeach; ?>
+                </optgroup>
+            <?php endforeach; ?>
         </select>
         <button class="pt-btn">Sincronizza mese corrente</button>
     </form>

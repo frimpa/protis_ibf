@@ -47,6 +47,11 @@ final class Services
         return self::$i[__FUNCTION__] ??= new ReportService();
     }
 
+    public static function roles(): RoleService
+    {
+        return self::$i[__FUNCTION__] ??= new RoleService();
+    }
+
     public static function settings(): SettingsService
     {
         return self::$i[__FUNCTION__] ??= new SettingsService();

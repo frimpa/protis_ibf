@@ -960,3 +960,51 @@ a.pt-switch { text-decoration: none; }
   .pt-guide-body table { break-inside: avoid; }
   html, body, .pt-app, .pt-main { background: #fff !important; }
 }
+
+/* 3.22.0 – Scrivania PDF */
+.pt-scrivania-help { margin: 0 0 .6rem; }
+.pt-scrivania { padding: 0; overflow: hidden; }
+.pt-scrivania iframe { display: block; width: 100%; height: calc(100dvh - 230px); min-height: 560px; border: 0; }
+@media (max-width: 760px) { .pt-scrivania iframe { height: calc(100dvh - 210px); min-height: 480px; } }
+
+/* 3.22.1 – menu più compatto: tutte le voci (fino a Guida) restano visibili sugli schermi da portatile */
+@media (max-width: 1500px) {
+  .pt-tabs { gap: .1rem; padding: .4rem .5rem; }
+  .pt-tabs a { padding: .5rem .62rem; gap: .32rem; font-size: .88rem; }
+  .pt-tabs a .pt-ico { width: 17px; height: 17px; }
+}
+@media (max-width: 1240px) and (min-width: 761px) {
+  .pt-tabs a .pt-ico { display: none; }
+  .pt-tabs a { padding: .5rem .58rem; }
+}
+
+/* 3.22.2 – smartphone: "Esci" sempre dentro lo schermo (testo del marchio che si accorcia, margine di sicurezza a destra) */
+@media (max-width: 760px) {
+  .pt-topbar { gap: .5rem; padding-right: calc(1rem + env(safe-area-inset-right)) !important; padding-left: calc(.8rem + env(safe-area-inset-left)) !important; }
+  .pt-brand { flex: 1 1 auto; min-width: 0; overflow: hidden; }
+  .pt-userchip { flex: none; gap: .45rem; }
+  .pt-topbar .pt-logout .pt-btn { padding: .35rem .65rem; }
+}
+@media (max-width: 480px) { .pt-brand > span { display: none; } }
+
+/* 3.23.0 – ruolo nella scheda persona */
+.pt-role-box { margin-bottom: .6rem; }
+.pt-role-select { width: auto; min-width: 15rem; min-height: 38px; padding: .3rem .6rem; }
+.pt-chip-role { background: color-mix(in srgb, var(--pt-primary) 12%, transparent); color: var(--pt-primary); }
+@media (max-width: 760px) { .pt-role-box .pt-epas-box-head { flex-wrap: wrap; } .pt-role-select { width: 100%; min-width: 0; } }
+.pt-role-box .pt-epas-box-head strong { white-space: nowrap; }
+
+/* 3.24.1 – Elimina persona non disponibile: pulsante disattivato con spiegazione */
+.pt-del-locked { display: flex; flex-direction: column; align-items: flex-start; gap: .25rem; max-width: 22rem; }
+.pt-del-locked .pt-btn[disabled] { opacity: .45; cursor: not-allowed; }
+.pt-del-locked small { line-height: 1.35; }
+
+/* 3.25.0 – Persone: schede Personale dell'istituto / Altri istituti / Account tecnici */
+.pt-seg { display: inline-flex; gap: .25rem; padding: .25rem; margin: 0 0 .9rem; background: var(--pt-surface-2, #eef2f7); border: 1px solid var(--pt-border); border-radius: 999px; max-width: 100%; overflow-x: auto; }
+.pt-seg-item { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .95rem; border-radius: 999px; text-decoration: none; color: var(--pt-muted) !important; font-weight: 600; font-size: .92rem; white-space: nowrap; }
+.pt-seg-item:hover { color: var(--pt-text) !important; }
+.pt-seg-item.is-active { background: var(--pt-surface); color: var(--pt-primary) !important; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.pt-seg-count { font-size: .75rem; font-weight: 700; padding: .05rem .45rem; border-radius: 999px; background: color-mix(in srgb, var(--pt-primary) 12%, transparent); color: var(--pt-primary); }
+@media (max-width: 760px) { .pt-seg { display: flex; } .pt-seg-item { flex: 1; justify-content: center; padding: .45rem .6rem; font-size: .85rem; } }
+.pt-seg-short { display: none; }
+@media (max-width: 760px) { .pt-seg-long { display: none; } .pt-seg-short { display: inline; } .pt-seg { overflow: visible; } .pt-seg-item { padding: .45rem .4rem; gap: .3rem; } }

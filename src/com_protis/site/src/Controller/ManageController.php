@@ -284,6 +284,28 @@ class ManageController extends BaseController
         }
     }
 
+    /** Elimina una persona inserita per errore (senza ore rendicontate). */
+    public function deletePerson(): void
+    {
+        $id = $this->input->post->getInt('id');
+
+        try {
+            $this->requireToken();
+            $this->requireManager();
+            $me     = $this->me();
+            $person = Services::people()->get($id);
+
+            if (!$me || !$person || !Services::people()->canAccess($me, $person)) {
+                throw new \RuntimeException('Persona non gestibile.', 403);
+            }
+
+            $name = Services::people()->delete($id, $me);
+            $this->done('people', $name . ' eliminato/a dall\'elenco delle persone.');
+        } catch (\Throwable $e) {
+            $this->error('person', $e, '&id=' . $id);
+        }
+    }
+
     public function savePerson(): void
     {
         $id = $this->input->post->getInt('id');

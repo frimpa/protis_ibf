@@ -8,9 +8,9 @@ Quello che si vede dipende dal ruolo:
 
 | Ruolo (gruppo Joomla) | Voci di menu | Cosa può fare |
 | --- | --- | --- |
-| Utente (Registered) | Home, Calendario, Associazioni, Profilo, Guida | Rendiconta le proprie ore, si associa ai progetti, genera i propri timesheet |
+| Utente (Registered) | Home, Calendario, Associazioni, Scrivania PDF, Profilo, Guida | Rendiconta le proprie ore, si associa ai progetti, genera i propri timesheet |
 | PROTIS Responsabili | in più Dashboard, Progetti, Persone, Codici assenza; Associazioni di tutti | Gestisce progetti, associazioni e calendari dei colleghi di tutte le sedi |
-| PROTIS Amministratori | in più Impostazioni, Registro | Tutto, comprese sedi, credenziali ePAS e registro attività |
+| PROTIS Amministratori | in più Impostazioni | Tutto, comprese sedi e credenziali ePAS |
 
 ## Accesso {#accesso}
 
@@ -111,6 +111,12 @@ Il **Profilo** contiene i tuoi dati per il timesheet:
 - foto: fino a 10 MB, viene ridotta e ritagliata in automatico e compare in alto al posto delle iniziali.
 
 La data di assunzione serve per il monte ore annuo quando l'associazione non lo indica: 1520 ore nei primi 3 anni, poi 1506.
+
+## Scrivania PDF {#scrivania}
+
+Se l'amministratore l'ha attivata, la voce **Scrivania PDF** (da smartphone sotto "Altro") apre uno strumento per lavorare sui PDF direttamente nel browser: firmare, aggiungere testo, evidenziare, coprire parti del documento, ruotare e riordinare le pagine, unire e dividere PDF. È utile, per esempio, per firmare il timesheet appena scaricato.
+
+I documenti **non vengono inviati al server**: restano sul tuo dispositivo e il PDF modificato si salva con un nuovo nome, senza toccare l'originale. "Apri a tutto schermo" la apre in una scheda a parte. La firma inserita è un'immagine, non una firma digitale qualificata.
 
 ## Domande frequenti {#faq}
 

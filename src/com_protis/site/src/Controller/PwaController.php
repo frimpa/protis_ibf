@@ -21,7 +21,7 @@ use Joomla\CMS\Uri\Uri;
  */
 class PwaController extends BaseController
 {
-    public const VERSION = '3.21.0';
+    public const VERSION = '3.26.2';
 
     private function out(string $type, string $body, int $maxAge = 0): void
     {

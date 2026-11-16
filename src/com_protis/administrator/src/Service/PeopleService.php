@@ -320,6 +320,58 @@ final class PeopleService extends AbstractService
         return array_values(array_filter($this->sites(), static fn ($s) => !empty($s->epas_only)));
     }
 
+    /** Minuti rendicontati sui progetti da una persona (0 = nessuna ora). */
+    public function reportedMinutes(int $personId): int
+    {
+        return (int) $this->db->setQuery(
+            $this->db->createQuery()->select('COALESCE(SUM(minutes), 0)')->from('#__protis_hours')->where('person_id = ' . $personId)
+        )->loadResult();
+    }
+
+    /**
+     * Elimina una persona inserita per errore: scheda, associazioni, presenze e il suo account Joomla.
+     * Non si possono eliminare sé stessi, gli amministratori e chi ha già ore rendicontate (va disattivato).
+     */
+    public function delete(int $id, object $me): string
+    {
+        $p = $this->get($id);
+
+        if (!$p) {
+            throw new \RuntimeException('Persona non trovata.', 404);
+        }
+
+        if ((int) $p->id === (int) $me->id) {
+            throw new \DomainException('Non puoi eliminare te stesso.');
+        }
+
+        if (empty($p->external)) {
+            throw new \DomainException('Si possono eliminare solo i colleghi di altri istituti. Il personale dell\'istituto si disattiva con l\'interruttore Attivo.');
+        }
+
+        if ($this->reportedMinutes($id) > 0) {
+            throw new \DomainException('Ha già ore rendicontate sui progetti: non si può eliminare, si può solo disattivare (interruttore Attivo).');
+        }
+
+        $user = !empty($p->user_id) ? User::getInstance((int) $p->user_id) : null;
+
+        if ($user && $user->id && Acl::isAdmin($user)) {
+            throw new \DomainException('È un amministratore: si elimina solo dall\'amministrazione di Joomla.');
+        }
+
+        $name = trim($p->cognome . ' ' . $p->nome) ?: $p->uid;
+
+        // associazioni e presenze vengono eliminate a cascata con la scheda
+        $this->db->setQuery('DELETE FROM #__protis_people WHERE id = ' . $id)->execute();
+
+        if ($user && $user->id) {
+            $user->delete();
+        }
+
+        $this->log('person.delete', 'Eliminata la persona ' . $name . ' (' . $p->uid . ')');
+
+        return $name;
+    }
+
     /** @return string[] */
     public function contractTypes(): array
     {
@@ -412,6 +464,15 @@ final class PeopleService extends AbstractService
     }
 
     /** Collega esterno abilitato e attivo? (usato dal plugin di accesso) */
+    /** La persona con questo username è stata disattivata in PROTIS IBF (interruttore Attivo spento)? */
+    public function isDisabled(string $uid): bool
+    {
+        $q = $this->db->createQuery()->select('COUNT(*)')->from('#__protis_people')
+            ->where('LOWER(uid) = LOWER(:u)')->where('active = 0')->bind(':u', $uid);
+
+        return (int) $this->db->setQuery($q)->loadResult() > 0;
+    }
+
     public function isEnabledExternal(string $uid): bool
     {
         $q = $this->db->createQuery()->select('COUNT(*)')->from('#__protis_people')

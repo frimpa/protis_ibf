@@ -316,8 +316,9 @@ final class EpasService extends AbstractService
     /** Elenco persone attive con matricola (per la sincronizzazione notturna). @return object[] */
     public function syncablePeople(): array
     {
-        $q = $this->db->createQuery()->select('p.*, s.codice_sede')->from('#__protis_people AS p')
+        $q = $this->db->createQuery()->select('p.*, s.codice_sede, es.sigla AS epas_sigla, es.sede AS epas_sede')->from('#__protis_people AS p')
             ->join('LEFT', '#__protis_sites AS s', 's.id = p.site_id')
+            ->join('LEFT', '#__protis_sites AS es', 'es.id = p.epas_site_id')
             ->where('p.active = 1')->where('p.epas_off = 0')->where('(p.external = 0 OR p.epas_site_id IS NOT NULL)')
             ->where('p.matricola IS NOT NULL')->where("p.matricola <> ''")
             ->order('p.cognome');

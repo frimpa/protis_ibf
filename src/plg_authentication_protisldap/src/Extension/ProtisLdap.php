@@ -129,6 +129,7 @@ final class ProtisLdap extends CMSPlugin implements SubscriberInterface
             Log::add('Accesso negato a ' . $username . ': sede "' . $attr['departmentnumber'] . '" non abilitata in PROTIS IBF → Impostazioni', Log::WARNING, 'protis-ldap');
             $response->status        = Authentication::STATUS_FAILURE;
             $response->error_message = $this->getApplication()->getLanguage()->_('PLG_PROTISLDAP_ERR_SITE');
+            $this->explain($response->error_message);
 
             return;
         }
@@ -145,6 +146,16 @@ final class ProtisLdap extends CMSPlugin implements SubscriberInterface
 
         $attr['uid'] = $attr['uid'] !== '' ? $attr['uid'] : $username;
 
+        // persona disattivata in PROTIS IBF (interruttore Attivo spento): niente accesso finché non viene riattivata
+        if (class_exists(PeopleService::class) && (new PeopleService())->isDisabled($attr['uid'])) {
+            Log::add('Accesso negato a ' . $attr['uid'] . ': persona disattivata in PROTIS IBF', Log::INFO, 'protis-ldap');
+            $response->status        = Authentication::STATUS_FAILURE;
+            $response->error_message = $this->getApplication()->getLanguage()->_('PLG_PROTISLDAP_ERR_DISABLED');
+            $this->explain($response->error_message);
+
+            return;
+        }
+
         $response->status        = Authentication::STATUS_SUCCESS;
         $response->error_message = '';
         $response->username      = $attr['uid'];
@@ -159,6 +170,15 @@ final class ProtisLdap extends CMSPlugin implements SubscriberInterface
             }
         } catch (\Throwable $e) {
             Log::add('PROTIS IBF: aggiornamento anagrafica fallito: ' . $e->getMessage(), Log::WARNING, 'protis');
+        }
+    }
+
+    /** Motivo del rifiuto da mostrare nella pagina di accesso PROTIS IBF al posto del messaggio generico di Joomla. */
+    private function explain(string $message): void
+    {
+        try {
+            $this->getApplication()->getSession()->set('protis.login_error', $message);
+        } catch (\Throwable) {
         }
     }
 

@@ -37,7 +37,19 @@ class AuthController extends BaseController
 
         $options = ['remember' => $this->input->post->getBool('remember', false), 'return' => $return, 'silent' => false];
 
+        $session = $this->app->getSession();
+        $session->set('protis.login_error', null);
+
         if (true !== $this->app->login($credentials, $options)) {
+            // motivo specifico (sede non abilitata, profilo disattivato) al posto del messaggio generico
+            $why = (string) $session->get('protis.login_error', '');
+
+            if ($why !== '') {
+                $session->set('protis.login_error', null);
+                $this->app->getMessageQueue(true);
+                $this->app->enqueueMessage($why, 'warning');
+            }
+
             $this->setRedirect(Route::_('index.php?option=com_protis&view=login', false));
 
             return;

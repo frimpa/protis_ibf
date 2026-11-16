@@ -1,5 +1,56 @@
 # Novità
 
+## 3.26.2 – novembre 2026
+
+- Test connessione ePAS: il menu parte da *Scegli la persona…* (nessun nome preselezionato) e mostra sempre i due gruppi; se nessun collega esterno ha la sede ePAS impostata, il gruppo *Altri istituti* lo dice.
+
+## 3.26.1 – novembre 2026
+
+- Calendario (menu "Calendario di") e scelta delle persone nelle associazioni: accanto ai colleghi esterni compare **(Altro istituto)**.
+- Impostazioni → Test connessione ePAS: persone divise tra *Personale dell'istituto* e *Altri istituti*, con la sede ePAS del collega esterno; nota su chi compare nell'elenco.
+
+## 3.26.0 – novembre 2026
+
+- **Elimina persona** solo per i colleghi di altri istituti (anche lato server); il personale dell'istituto si disattiva con l'interruttore Attivo.
+- Una persona **disattivata non può più accedere**, nemmeno con le credenziali CNR (LDAP) o con un account locale, finché non viene riattivata; le sessioni già aperte si chiudono. La pagina di accesso mostra il motivo (profilo disattivato, sede non abilitata) invece del messaggio generico.
+
+## 3.25.1 – novembre 2026
+
+- Persone: solo le schede **Personale** e **Altri istituti**; gli account tecnici (amministratori senza matricola né progetti) non compaiono.
+
+## 3.25.0 – novembre 2026
+
+- Persone divisa in schede: **Personale** dell'istituto (predefinita, con la sincronizzazione ePAS per tutti), **Altri istituti** (con il modulo per abilitare i colleghi esterni) e **Account tecnici**: gli amministratori senza matricola né progetti (es. l'utente amministratore di Joomla) non compaiono più tra chi rendiconta.
+
+## 3.24.1 – novembre 2026
+
+- Scheda persona: per chi ha ore rendicontate il pulsante **Elimina persona** compare disattivato, con la spiegazione sotto (spegnere l'interruttore Attivo).
+
+## 3.24.0 – novembre 2026
+
+- Scheda persona: pulsante **Elimina persona** per chi è stato inserito per errore (es. un collega di altro istituto). Elimina scheda, associazioni, presenze e account Joomla, dopo conferma. Non è disponibile per sé stessi, per gli amministratori e per chi ha già ore rendicontate (che si può solo disattivare).
+
+## 3.23.1 – novembre 2026
+
+- Scheda persona: chi non ha ancora fatto il primo accesso compare con ruolo **Utente** (Registered, il ruolo predefinito) invece di "nessun account"; dopo il primo accesso un responsabile può renderlo Responsabile.
+
+## 3.23.0 – novembre 2026
+
+- Scheda persona: riquadro **Ruolo in PROTIS IBF** per scegliere *Utente* (Registered) o *Responsabile (amministrativo)* (PROTIS Responsabili), con salvataggio immediato: i responsabili possono abilitare altri colleghi alla gestione senza passare dall'amministrazione di Joomla. Non si possono cambiare il proprio ruolo né quello degli amministratori.
+- Elenco Persone: etichetta *Responsabile* o *Amministratore* accanto al nome.
+
+## 3.22.2 – novembre 2026
+
+- Smartphone: il pulsante **Esci** in alto a destra non viene più tagliato sugli schermi più larghi (es. iPhone Pro Max); margine di sicurezza a destra su tutti gli iPhone.
+
+## 3.22.1 – novembre 2026
+
+- Tolta la voce **Registro** dal menu degli amministratori (le operazioni restano nel database, gli errori nei log del server). Menu più compatto: tutte le voci, Guida compresa, restano visibili anche sugli schermi dei portatili.
+
+## 3.22.0 – novembre 2026
+
+- Nuova voce **Scrivania PDF** per tutti gli utenti collegati: firmare, annotare, coprire, unire e dividere PDF nel browser, senza inviare i documenti al server. Si attiva indicando nelle Opzioni il percorso del file `index.html` di Scrivania PDF sul server; la pagina viene servita solo a chi ha effettuato l'accesso.
+
 ## 3.21.0 – novembre 2026 – prima versione pubblica
 
 - Pubblicazione con licenza **EUPL-1.2**, per l'adozione da parte di altri istituti CNR, mantenendo il nome PROTIS IBF e i crediti all'autore (file NOTICE).

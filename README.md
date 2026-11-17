@@ -107,3 +107,5 @@ Copyright © 2026 Francesco Impallari / CNR – Istituto di Biofisica.
 Distribuito con licenza **European Union Public Licence v. 1.2** ([LICENSE](LICENSE)).
 Joomla! (GPL-2.0-or-later) viene scaricato in fase di installazione; PhpSpreadsheet e dipendenze sono MIT.
 Ogni istituto che adotta PROTIS IBF è responsabile della propria installazione e dei dati che vi tratta.
+
+Applicazione sviluppata con il supporto dell'assistente di intelligenza artificiale Claude (Anthropic).

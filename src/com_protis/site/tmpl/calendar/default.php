@@ -205,12 +205,13 @@ $p = $this->person;
                 </fieldset>
                 <label>Ore giornaliere assegnate a blocchi di
                     <select name="granularity">
-                        <option value="15" selected>un quarto d'ora (es. 2:15, 2:30, 2:45)</option>
+                        <option value="60" selected>un'ora (es. 2:00, 3:00)</option>
                         <option value="30">mezz'ora (es. 2:00, 2:30)</option>
+                        <option value="15">un quarto d'ora (es. 2:15, 2:30, 2:45)</option>
                         <option value="5">5 minuti (es. 2:35, 2:40)</option>
                         <option value="1">un minuto (valori qualsiasi, es. 2:37)</option>
                     </select>
-                    <small>Così le ore di ogni giorno risultano "tonde". L'ultimo giorno può avere qualche minuto di differenza per far tornare il totale.</small>
+                    <small>Così le ore di ogni giorno risultano "tonde". Se il totale non è un multiplo del blocco, i minuti in più vanno su un solo giorno per far tornare il totale.</small>
                 </label>
             </div>
         </div>

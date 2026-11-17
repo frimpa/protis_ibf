@@ -465,7 +465,7 @@ final class CalendarService extends AbstractService
      *
      * @param  array<int,int>  $targets      wp_id => minuti richiesti nel mese (i WP indicati vengono prima azzerati)
      * @param  string          $mode         'uniform' | 'random'
-     * @param  int             $granularity  minuti (1, 5, 15, 30)
+     * @param  int             $granularity  minuti (1, 5, 15, 30, 60)
      */
     public function distribute(int $personId, int $year, int $month, array $targets, string $mode, int $granularity, ProjectService $projects, int $userId): array
     {
@@ -570,52 +570,97 @@ final class CalendarService extends AbstractService
      */
     public static function allocate(int $req, array $caps, array $weights, int $granularity = 1): array
     {
-        $alloc     = array_fill_keys(array_keys($caps), 0);
-        $remaining = $req;
+        $g     = max(1, $granularity);
+        $alloc = array_fill_keys(array_keys($caps), 0);
 
-        for ($iter = 0; $iter < 60 && $remaining > 0; $iter++) {
-            $slackDays = array_filter($caps, static fn ($c, $d) => $c - $alloc[$d] > 0, ARRAY_FILTER_USE_BOTH);
+        if ($req <= 0 || !$caps) {
+            return $alloc;
+        }
 
-            if (!$slackDays) {
+        // si lavora a blocchi interi: ogni giorno riceve un multiplo del blocco, senza superare la sua capacità
+        $units = intdiv($req, $g);
+        $rest  = $req - $units * $g;
+        $room  = [];
+        $given = [];
+
+        foreach ($caps as $d => $c) {
+            $room[$d]  = intdiv(max(0, (int) $c), $g);
+            $given[$d] = 0;
+        }
+
+        $left = $units;
+
+        for ($iter = 0; $iter < 200 && $left > 0; $iter++) {
+            $open = array_values(array_filter(array_keys($caps), static fn ($d) => $given[$d] < $room[$d]));
+
+            if (!$open) {
                 break;
             }
 
             $wSum = 0.0;
 
-            foreach (array_keys($slackDays) as $d) {
+            foreach ($open as $d) {
                 $wSum += max(0.0001, $weights[$d] ?? 1);
             }
 
+            $frac   = [];
             $placed = 0;
-            $unit   = $remaining >= $granularity * \count($slackDays) ? $granularity : 1;
 
-            foreach (array_keys($slackDays) as $d) {
-                $share = $remaining * max(0.0001, $weights[$d] ?? 1) / $wSum;
-                $give  = (int) (floor($share / $unit) * $unit);
-                $give  = min($give, $caps[$d] - $alloc[$d], $remaining - $placed);
-
-                if ($give > 0) {
-                    $alloc[$d] += $give;
-                    $placed += $give;
-                }
+            foreach ($open as $d) {
+                $share     = $left * max(0.0001, $weights[$d] ?? 1) / $wSum;
+                $give      = min((int) floor($share), $room[$d] - $given[$d], $left - $placed);
+                $given[$d] += $give;
+                $placed    += $give;
+                $frac[$d]  = $share - floor($share);
             }
 
             if ($placed === 0) {
-                // residuo più piccolo dell'unità: assegna minuto per minuto ai giorni con più spazio
-                uksort($slackDays, static fn ($a, $b) => ($caps[$b] - $alloc[$b]) <=> ($caps[$a] - $alloc[$a]));
+                // meno blocchi che giorni: un blocco ciascuno ai giorni con la quota più alta
+                arsort($frac);
 
-                foreach (array_keys($slackDays) as $d) {
-                    if ($remaining - $placed <= 0) {
+                foreach (array_keys($frac) as $d) {
+                    if ($placed >= $left) {
                         break;
                     }
 
-                    $give = min($unit, $caps[$d] - $alloc[$d], $remaining - $placed);
-                    $alloc[$d] += $give;
-                    $placed += $give;
+                    if ($given[$d] < $room[$d]) {
+                        $given[$d]++;
+                        $placed++;
+                    }
                 }
             }
 
-            $remaining -= $placed;
+            $left -= $placed;
+        }
+
+        foreach ($given as $d => $u) {
+            $alloc[$d] = $u * $g;
+        }
+
+        // minuti che non formano un blocco intero (o blocchi che non entrano interi): sui giorni con più spazio
+        $extra = $rest + $left * $g;
+
+        if ($extra > 0) {
+            $free = [];
+
+            foreach ($caps as $d => $c) {
+                $free[$d] = (int) $c - $alloc[$d];
+            }
+
+            arsort($free);
+
+            foreach ($free as $d => $f) {
+                if ($extra <= 0) {
+                    break;
+                }
+
+                $give = min($f, $extra);
+
+                if ($give > 0) {
+                    $alloc[$d] += $give;
+                    $extra     -= $give;
+                }
+            }
         }
 
         return $alloc;

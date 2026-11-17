@@ -1,5 +1,9 @@
 # Novità
 
+## 3.27.1 – novembre 2026
+
+- Calendario → Distribuisci: le ore di ogni giorno rispettano davvero il blocco scelto (prima, con totali piccoli o in modalità casuale, si potevano ottenere minuti sparsi). Nuovo blocco di **un'ora**, ora predefinito; se il totale non è un multiplo del blocco, i minuti in più vanno su un solo giorno.
+
 ## 3.27.0 – novembre 2026
 
 - **Informativa sul trattamento dei dati**: link al PDF nella pagina di accesso ("Accedendo dichiari di aver letto l'informativa…") e a piè di pagina di tutte le pagine. Nuova opzione con il percorso del PDF; se vuota si usa l'unico PDF caricato in `images/informativa`.

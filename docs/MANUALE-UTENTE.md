@@ -76,7 +76,7 @@ Nel calendario si attribuiscono le ore di ogni giorno ai WP dei progetti. Si apr
 **Strumenti** (menu in alto):
 
 - **Riempi il mese con un progetto**: assegna a un WP le ore libere di ogni giorno utile. Salta i giorni di malattia, ferie, permessi e i codici esclusi; le ore già messe su altri progetti restano.
-- **Distribuisci ore mensili**: indichi il totale del mese per ciascun WP (es. 40:00) e PROTIS IBF lo ripartisce sui giorni utili, in modo uniforme o casuale, arrotondando a 1, 5, 15 o 30 minuti. I WP compilati vengono prima azzerati nel mese.
+- **Distribuisci ore mensili**: indichi il totale del mese per ciascun WP (es. 40:00) e PROTIS IBF lo ripartisce sui giorni utili, in modo uniforme o casuale, a blocchi di un'ora (predefinito), mezz'ora, un quarto d'ora, 5 minuti o un minuto: ogni giorno riceve un numero intero di blocchi. I WP compilati vengono prima azzerati nel mese.
 - **Svuota ore del mese**: cancella le ore rendicontate del mese, per tutti i progetti, un progetto o un solo WP. Le presenze ePAS non vengono toccate.
 
 Sotto il calendario ci sono il Riepilogo del mese e le Ore per progetto del mese, come nella Home.

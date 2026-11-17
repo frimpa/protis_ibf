@@ -16,6 +16,7 @@ $code = (int) $this->error->getCode();
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $code ?> - PROTIS IBF</title>
+    <link rel="icon" href="<?= \Joomla\CMS\Uri\Uri::root(true) ?>/media/com_protis/images/icons/favicon.ico" type="image/x-icon">
     <style>body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:system-ui,sans-serif;background:#f4f6fa;color:#1d2433;text-align:center;padding:16px}
     a{display:inline-block;margin-top:1rem;background:#0b4f8a;color:#fff;padding:.7rem 1.2rem;border-radius:10px;text-decoration:none}</style>
 </head>

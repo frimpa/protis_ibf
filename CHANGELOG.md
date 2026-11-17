@@ -1,5 +1,9 @@
 # Novità
 
+## 3.27.2 – novembre 2026
+
+- **Favicon** PROTIS IBF (il simbolo blu e giallo) nelle schede del browser e nei preferiti, anche nella pagina di accesso e nelle pagine di errore; all'installazione viene copiata anche nella radice del sito se lì non ce n'è già una.
+
 ## 3.27.1 – novembre 2026
 
 - Calendario → Distribuisci: le ore di ogni giorno rispettano davvero il blocco scelto (prima, con totali piccoli o in modalità casuale, si potevano ottenere minuti sparsi). Nuovo blocco di **un'ora**, ora predefinito; se il totale non è un multiplo del blocco, i minuti in più vanno su un solo giorno.

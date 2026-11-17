@@ -77,8 +77,11 @@ abstract class BaseHtmlView extends HtmlView
             'version' => PwaController::VERSION,
         ]);
 
+        $icons = Uri::root(true) . '/media/com_protis/images/icons/';
+        $doc->addFavicon($icons . 'favicon.ico', 'image/x-icon', 'icon');
+        $doc->addHeadLink($icons . 'favicon-32.png', 'icon', 'rel', ['type' => 'image/png', 'sizes' => '32x32']);
+
         if ($this->cparams->get('pwa', 1)) {
-            $icons = Uri::root(true) . '/media/com_protis/images/icons/';
             $doc->addHeadLink(Route::_('index.php?option=com_protis&task=pwa.manifest', false), 'manifest');
             $doc->addHeadLink($icons . 'apple-touch-icon.png', 'apple-touch-icon');
             $doc->setMetaData('theme-color', $theme);

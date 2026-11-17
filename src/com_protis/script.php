@@ -65,6 +65,13 @@ return new class () implements InstallerScriptInterface {
 
         $db = Factory::getContainer()->get(DatabaseInterface::class);
 
+        // favicon anche nella radice del sito (richiesta in automatico dai browser), solo se non ce n'è già una
+        $ico = JPATH_ROOT . '/media/com_protis/images/icons/favicon.ico';
+
+        if (is_file($ico) && !is_file(JPATH_ROOT . '/favicon.ico')) {
+            @copy($ico, JPATH_ROOT . '/favicon.ico');
+        }
+
         $dir = JPATH_ROOT . '/images/protis/loghi';
 
         if (!is_dir($dir)) {

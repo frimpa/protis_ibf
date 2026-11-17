@@ -15,6 +15,7 @@ Amministrazione Joomla → **Componenti → PROTIS IBF → Opzioni** (oppure in 
 | Logo dell'applicazione | `images/logo/mio-logo.png` | Vuoto = logo PROTIS IBF incluso. PNG con sfondo trasparente |
 | Scrivania PDF: file sul server | `/var/www/protis_apps/scrivania_pdf/index.html` | Facoltativo. Percorso dell'`index.html` di [Scrivania PDF](https://github.com/frimpa/scrivaniaPDF), meglio fuori dalla cartella pubblica: PROTIS IBF lo mostra solo agli utenti collegati, con la voce di menu *Scrivania PDF* |
 | Supporto: nome ed email | `Mario Rossi`, `mario.rossi@cnr.it` | **Referente locale** di PROTIS IBF nel vostro istituto: compare alla voce "Problemi di accesso?" della pagina di accesso |
+| Informativa sul trattamento dei dati | `images/informativa/informativa.pdf` | PDF dell'informativa privacy (percorso nel sito o URL). Vuoto = l'unico PDF in `images/informativa`, se presente. Il link compare nella pagina di accesso e a piè di pagina |
 | Colori | `#0b4f8a`, `#ffc300` | Colore principale e d'accento |
 | URL REST ePAS | `https://epas4clients.amministrazione.cnr.it/rest/v3` | Da cambiare solo se il CNR lo modifica |
 | Credenziali di altre sedi se mancanti | Sì | Se una sede non ha credenziali ePAS proprie usa quelle di un'altra sede dell'istituto |

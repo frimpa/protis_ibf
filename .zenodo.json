@@ -1,0 +1,23 @@
+{
+  "upload_type": "software",
+  "title": "PROTIS IBF: timesheet di progetto per gli enti pubblici di ricerca, integrato con ePAS e LDAP CNR",
+  "description": "<p>PROTIS IBF è un'applicazione web open source (pacchetto Joomla 6) che produce i timesheet mensili dei progetti di ricerca a partire dalle presenze del CNR. Legge presenze e assenze da ePAS, autentica gli utenti con la directory LDAP del CNR, permette di distribuire le ore su progetti e work package con pochi passaggi e genera timesheet in PDF pronti per la firma o in formato foglio di calcolo, con l'intestazione richiesta da ogni progetto. Si usa anche da smartphone come app web.</p><p>PROTIS IBF is an open-source web application (Joomla 6 package) that produces monthly research-project timesheets from CNR attendance records (ePAS) and the CNR LDAP directory.</p>",
+  "creators": [
+    {
+      "name": "Impallari, Francesco",
+      "affiliation": "Consiglio Nazionale delle Ricerche (CNR), Istituto di Biofisica (IBF)"
+    }
+  ],
+  "license": "EUPL-1.2",
+  "keywords": [
+    "timesheet",
+    "research project management",
+    "time reporting",
+    "research administration",
+    "ePAS",
+    "CNR",
+    "Joomla",
+    "progressive web app"
+  ],
+  "language": "ita"
+}

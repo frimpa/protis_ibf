@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Se usi PROTIS IBF, citalo così. / If you use PROTIS IBF, please cite it as below."
+title: "PROTIS IBF"
+abstract: "Applicazione web open source per i timesheet dei progetti di ricerca, integrata con ePAS e LDAP CNR."
+type: software
+authors:
+  - family-names: "Impallari"
+    given-names: "Francesco"
+    affiliation: "Consiglio Nazionale delle Ricerche (CNR), Istituto di Biofisica (IBF)"
+repository-code: "https://github.com/frimpa/protis_ibf"
+license: EUPL-1.2
+keywords:
+  - timesheet
+  - research project management
+  - ePAS
+  - CNR
+  - Joomla
+version: "3.27.0"
+date-released: "2026-11-17"

@@ -112,6 +112,32 @@ abstract class BaseHtmlView extends HtmlView
     }
 
     /** Scritte accanto al logo: [riga 1, riga 2]. */
+    /**
+     * Link all'informativa sul trattamento dei dati: l'opzione "privacy_url" (URL o percorso nel sito,
+     * es. images/informativa/informativa.pdf); se vuota, l'unico PDF nella cartella images/informativa.
+     * Stringa vuota se non c'è nulla da mostrare.
+     */
+    public function privacyUrl(): string
+    {
+        $v = trim((string) $this->cparams->get('privacy_url', ''));
+
+        if ($v === '') {
+            $pdf = glob(JPATH_ROOT . '/images/informativa/*.pdf') ?: [];
+            if (\count($pdf) !== 1) {
+                return '';
+            }
+            $v = 'images/informativa/' . basename($pdf[0]);
+        }
+
+        if (preg_match('#^https?://#i', $v)) {
+            return $v;
+        }
+
+        $v = ltrim($v, '/');
+
+        return is_file(JPATH_ROOT . '/' . $v) ? Uri::root(true) . '/' . implode('/', array_map('rawurlencode', explode('/', $v))) : '';
+    }
+
     public function brandLines(): array
     {
         return [

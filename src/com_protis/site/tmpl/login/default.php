@@ -66,6 +66,9 @@ $icon = $this->appLogo();
                 <p class="pt-help">Problemi di accesso? Scrivi a <a href="mailto:<?= htmlspecialchars($supE) ?>"><?= htmlspecialchars($supN !== '' ? $supN : $supE) ?></a>.</p>
             <?php endif; ?>
             <p class="pt-help pt-login-guide"><a href="<?= Route::_('index.php?option=com_protis&view=guide') ?>">Come funziona PROTIS IBF – Guida</a></p>
+            <?php if (($priv = $this->privacyUrl()) !== '') : ?>
+                <p class="pt-help pt-login-privacy">Accedendo dichiari di aver letto l'<a href="<?= htmlspecialchars($priv) ?>" target="_blank" rel="noopener">informativa sul trattamento dei dati personali</a>.</p>
+            <?php endif; ?>
         </section>
     </div>
     <footer class="pt-login-foot"><?= $ist !== '' ? $app . ' · ' . $ist : '' ?>

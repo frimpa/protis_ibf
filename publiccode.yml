@@ -3,8 +3,8 @@ publiccodeYmlVersion: "0.4"
 name: PROTIS IBF
 url: "https://github.com/frimpa/protis_ibf"
 landingURL: "https://github.com/frimpa/protis_ibf"
-softwareVersion: "3.21.0"
-releaseDate: "2026-11-12"
+softwareVersion: "3.27.0"
+releaseDate: "2026-11-17"
 platforms:
   - web
 

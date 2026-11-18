@@ -45,7 +45,8 @@ class HtmlView extends BaseHtmlView
         }
 
         if ($this->canManage) {
-            $this->people = Services::people()->listVisible($this->me, '', true);
+            // senza gli account tecnici (es. l'amministratore di Joomla), come nell'elenco Persone
+            $this->people = Services::people()->withoutTechnical(Services::people()->listVisible($this->me, '', true), (int) ($this->person->id ?? 0));
         }
 
         $this->getDocument()->getWebAssetManager()->useScript('com_protis.calendar');

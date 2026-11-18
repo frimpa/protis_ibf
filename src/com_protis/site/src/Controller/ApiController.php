@@ -252,7 +252,7 @@ class ApiController extends BaseController
     {
         try {
             $me = $this->me();
-            $list = Services::people()->listVisible($me, $this->input->getString('q', ''), true);
+            $list = Services::people()->withoutTechnical(Services::people()->listVisible($me, $this->input->getString('q', ''), true));
 
             $this->json(['success' => true, 'data' => array_map(static fn ($p) => [
                 'id'   => (int) $p->id,

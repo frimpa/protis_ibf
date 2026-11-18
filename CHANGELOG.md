@@ -1,5 +1,9 @@
 # Novità
 
+## 3.27.3 – novembre 2026
+
+- Calendario: nel menu "Calendario di" non compaiono più gli account tecnici (amministratori senza matricola né progetti, es. l'utente amministratore di Joomla), come già in Persone.
+
 ## 3.27.2 – novembre 2026
 
 - **Favicon** PROTIS IBF (il simbolo blu e giallo) nelle schede del browser e nei preferiti, anche nella pagina di accesso e nelle pagine di errore; all'installazione viene copiata anche nella radice del sito se lì non ce n'è già una.

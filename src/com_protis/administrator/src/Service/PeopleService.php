@@ -332,6 +332,22 @@ final class PeopleService extends AbstractService
      * Elimina una persona inserita per errore: scheda, associazioni, presenze e il suo account Joomla.
      * Non si possono eliminare sé stessi, gli amministratori e chi ha già ore rendicontate (va disattivato).
      */
+    /**
+     * Toglie gli account tecnici (amministratori senza matricola né progetti, es. l'utente amministratore
+     * di Joomla): non rendicontano e non vanno negli elenchi di scelta. $keepId resta comunque in elenco.
+     *
+     * @param  object[]  $people  righe di listVisible() (con n_progetti)
+     *
+     * @return object[]
+     */
+    public function withoutTechnical(array $people, ?int $keepId = null): array
+    {
+        $roles = Services::roles()->rolesFor($people);
+
+        return array_values(array_filter($people, static fn ($p) => (int) $p->id === (int) $keepId
+            || !(($roles[(int) $p->id] ?? '') === 'admin' && empty($p->matricola) && !(int) ($p->n_progetti ?? 0))));
+    }
+
     /** Nominativo da mostrare: cognome e nome, oppure lo username finché la persona non ha fatto il primo accesso. */
     public static function displayName(object $p): string
     {

@@ -6,7 +6,7 @@
 	<copyright>(C) CNR - Istituto di Biofisica</copyright>
 	<license>EUPL-1.2 - vedi LICENSE</license>
 	<authorUrl>https://github.com/frimpa/protis_ibf</authorUrl>
-	<version>3.27.3</version>
+	<version>3.27.4</version>
 	<description>COM_PROTIS_XML_DESCRIPTION</description>
 	<namespace path="src">Cnr\Component\Protis</namespace>
 	<scriptfile>script.php</scriptfile>

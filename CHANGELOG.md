@@ -1,5 +1,9 @@
 # Novità
 
+## 3.27.4 – novembre 2026
+
+- **Video di presentazione**: pulsante "Guarda il video di presentazione" nella pagina di accesso (si apre in una finestra) e video in testa alla Guida. Nuova opzione con il percorso del file MP4 (predefinito `images/presentazione/protis_ibf.mp4`, anche fuori dalla parte pubblica del sito); il video è servito da PROTIS IBF senza mostrarne il percorso, con anteprima automatica se c'è un'immagine con lo stesso nome. Se il file non c'è, non compare nulla.
+
 ## 3.27.3 – novembre 2026
 
 - Calendario: nel menu "Calendario di" non compaiono più gli account tecnici (amministratori senza matricola né progetti, es. l'utente amministratore di Joomla), come già in Persone.

@@ -17,6 +17,7 @@ $supN = trim((string) $this->cparams->get('support_name', ''));
 $supE = trim((string) $this->cparams->get('support_email', ''));
 $sedi = array_map(static fn ($s) => $s->sede, array_filter(\Cnr\Component\Protis\Administrator\Service\Services::people()->instituteSites(), static fn ($s) => $s->published));
 $icon = $this->appLogo();
+$video = $this->presentationVideo();
 ?>
 <div class="pt-app pt-login">
     <div class="pt-login-shell">
@@ -66,6 +67,9 @@ $icon = $this->appLogo();
                 <p class="pt-help">Problemi di accesso? Scrivi a <a href="mailto:<?= htmlspecialchars($supE) ?>"><?= htmlspecialchars($supN !== '' ? $supN : $supE) ?></a>.</p>
             <?php endif; ?>
             <p class="pt-help pt-login-guide"><a href="<?= Route::_('index.php?option=com_protis&view=guide') ?>">Come funziona PROTIS IBF – Guida</a></p>
+            <?php if ($video) : ?>
+                <p class="pt-help pt-login-video"><button type="button" class="pt-video-open" data-video-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M10 8.2v7.6l6-3.8z" fill="#fff"/></svg> Guarda il video di presentazione <small>(1 minuto)</small></button></p>
+            <?php endif; ?>
             <?php if (($priv = $this->privacyUrl()) !== '') : ?>
                 <p class="pt-help pt-login-privacy">Accedendo dichiari di aver letto l'<a href="<?= htmlspecialchars($priv) ?>" target="_blank" rel="noopener">informativa sul trattamento dei dati personali</a>.</p>
             <?php endif; ?>
@@ -73,9 +77,36 @@ $icon = $this->appLogo();
     </div>
     <footer class="pt-login-foot"><?= $ist !== '' ? $app . ' · ' . $ist : '' ?>
         <span>Software PROTIS IBF © Ing. Francesco Impallari, CNR – Istituto di Biofisica · licenza EUPL-1.2</span></footer>
+    <?php if ($video) : ?>
+    <dialog id="pt-video" class="pt-dialog pt-dialog-wide pt-video-dialog" aria-labelledby="pt-video-title">
+        <header class="pt-dialog-head">
+            <h2 id="pt-video-title">PROTIS IBF in un minuto</h2>
+            <button type="button" class="pt-btn pt-btn-icon" data-video-close aria-label="Chiudi">✕</button>
+        </header>
+        <div class="pt-video-wrap">
+            <video controls playsinline controlslist="nodownload" disablepictureinpicture oncontextmenu="return false" preload="none"<?= $video['poster'] !== '' ? ' poster="' . htmlspecialchars($video['poster']) . '"' : '' ?>>
+                <source src="<?= htmlspecialchars($video['src']) ?>" type="video/mp4">
+            </video>
+        </div>
+    </dialog>
+    <?php endif; ?>
     <div class="pt-toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script>
+// video di presentazione: si apre in una finestra e si ferma quando la finestra si chiude
+(() => {
+  const dlg = document.getElementById('pt-video');
+  const open = document.querySelector('[data-video-open]');
+  if (!dlg || !open) return;
+  const video = dlg.querySelector('video');
+  open.addEventListener('click', () => {
+    if (typeof dlg.showModal === 'function') { dlg.showModal(); } else { dlg.setAttribute('open', ''); }
+    video.play().catch(() => {});
+  });
+  dlg.querySelector('[data-video-close]').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => video.pause());
+})();
 document.querySelector('[data-pass-toggle]')?.addEventListener('click', (e) => {
   const b = e.currentTarget;
   const i = b.parentElement.querySelector('input');

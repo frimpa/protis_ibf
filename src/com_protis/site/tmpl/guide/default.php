@@ -10,6 +10,9 @@
 
 use Joomla\CMS\Router\Route;
 
+$video = $this->presentationVideo();
+$toc   = $video ? array_merge([['id' => 'video', 'title' => 'Video di presentazione']], $this->toc) : $this->toc;
+
 if ($this->guest) : ?>
 <div class="pt-app pt-guide-guest">
     <header class="pt-topbar">
@@ -34,7 +37,7 @@ endif; ?>
     <span>Vai alla sezione</span>
     <select class="pt-input" onchange="if (this.value) { location.hash = this.value; }">
         <option value="">Indice…</option>
-        <?php foreach ($this->toc as $t) : ?><option value="<?= htmlspecialchars($t['id']) ?>"><?= htmlspecialchars($t['title']) ?></option><?php endforeach; ?>
+        <?php foreach ($toc as $t) : ?><option value="<?= htmlspecialchars($t['id']) ?>"><?= htmlspecialchars($t['title']) ?></option><?php endforeach; ?>
     </select>
 </label>
 
@@ -42,13 +45,24 @@ endif; ?>
     <nav class="pt-guide-toc pt-card" aria-label="Indice della guida">
         <strong>Indice</strong>
         <ol>
-            <?php foreach ($this->toc as $t) : ?><li><a href="#<?= htmlspecialchars($t['id']) ?>"><?= htmlspecialchars($t['title']) ?></a></li><?php endforeach; ?>
+            <?php foreach ($toc as $t) : ?><li><a href="#<?= htmlspecialchars($t['id']) ?>"><?= htmlspecialchars($t['title']) ?></a></li><?php endforeach; ?>
         </ol>
         <?php if ($this->guest) : ?>
             <p class="pt-help">Dopo l'accesso, responsabili e amministratori trovano qui anche le loro sezioni.</p>
         <?php endif; ?>
     </nav>
     <article class="pt-guide-body pt-card">
+        <?php if ($video) : ?>
+            <section class="pt-guide-video">
+                <h2 id="video">Video di presentazione</h2>
+                <p>In un minuto: come si crea un progetto, come ci si associa, come arrivano le presenze e come si ottiene il timesheet.</p>
+                <div class="pt-video-wrap">
+                    <video controls playsinline controlslist="nodownload" disablepictureinpicture oncontextmenu="return false" preload="metadata"<?= $video['poster'] !== '' ? ' poster="' . htmlspecialchars($video['poster']) . '"' : '' ?>>
+                        <source src="<?= htmlspecialchars($video['src']) ?>" type="video/mp4">
+                            </video>
+                </div>
+            </section>
+        <?php endif; ?>
         <?= $this->html ?>
     </article>
 </div>

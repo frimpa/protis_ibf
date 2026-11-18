@@ -141,6 +141,33 @@ abstract class BaseHtmlView extends HtmlView
         return is_file(JPATH_ROOT . '/' . $v) ? Uri::root(true) . '/' . implode('/', array_map('rawurlencode', explode('/', $v))) : '';
     }
 
+    /**
+     * Video di presentazione (opzione "video_path"): ['src' => ..., 'poster' => ...] se c'è, altrimenti [].
+     * Il video e l'anteprima sono serviti da PROTIS (tools.video, tools.poster): nella pagina non compare il percorso del file.
+     */
+    public function presentationVideo(): array
+    {
+        $v = trim((string) $this->cparams->get('video_path', 'images/presentazione/protis_ibf.mp4'));
+
+        if (preg_match('#^https?://#i', $v)) {
+            return ['src' => $v, 'poster' => ''];
+        }
+
+        $file = \Cnr\Component\Protis\Site\Controller\ToolsController::videoFile();
+
+        if ($file === null) {
+            return [];
+        }
+
+        $ver    = '&v=' . filemtime($file);
+        $poster = \Cnr\Component\Protis\Site\Controller\ToolsController::posterFile();
+
+        return [
+            'src'    => Route::_('index.php?option=com_protis&task=tools.video' . $ver, false),
+            'poster' => $poster !== null ? Route::_('index.php?option=com_protis&task=tools.poster&v=' . filemtime($poster), false) : '',
+        ];
+    }
+
     public function brandLines(): array
     {
         return [
